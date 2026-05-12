@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Administration – HAVA Global Trade</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="index.css" rel="stylesheet">
+<script src="init-products.js"></script>
+<style>
+body { background: #f5f1eb; }
+.admin-container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+.admin-login { padding: 60px 40px; background: white; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); max-width: 400px; margin: 60px auto; }
+.admin-panel { display: none; }
+.form-section { background: white; padding: 40px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; margin-bottom: 8px; font-weight: 500; color: var(--dark); }
+.form-group input, .form-group select, .form-group textarea { 
+  width: 100%; 
+  padding: 12px; 
+  border: 1px solid #ddd; 
+  border-radius: 4px; 
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+.form-group textarea { height: 100px; resize: vertical; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.1);
+}
+.btn-admin { 
+  background: var(--gold); 
+  color: white; 
+  padding: 12px 24px; 
+  border: none; 
+  border-radius: 4px; 
+  cursor: pointer; 
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: background 0.3s;
+}
+.btn-admin:hover { background: #b8860b; }
+.btn-logout { background: #6c757d; margin-left: 10px; }
+.btn-logout:hover { background: #5a6268; }
+.product-grid { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+  gap: 20px; 
+}
+.product-card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid var(--gold);
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+.product-info h4 { margin: 0 0 5px 0; color: var(--dark); }
+.product-info p { margin: 3px 0; color: #666; font-size: 0.9rem; }
+.btn-delete { 
+  background: #dc3545; 
+  color: white; 
+  border: none; 
+  padding: 8px 12px; 
+  border-radius: 3px; 
+  cursor: pointer; 
+  font-size: 0.85rem;
+}
+.btn-delete:hover { background: #c82333; }
+.alert { padding: 15px; border-radius: 4px; margin-bottom: 20px; }
+.alert-success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+.alert-error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+.filter-buttons { margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
+.filter-btn { 
+  padding: 8px 15px; 
+  border: 2px solid #ddd; 
+  background: white; 
+  border-radius: 4px; 
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.filter-btn.active { 
+  background: var(--gold); 
+  color: white; 
+  border-color: var(--gold);
+}
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="nav">
+  <a href="index.html" style="text-decoration: none; color: inherit;">
+    <div class="logo-wrap">
+      <div>
+        <div class="logo-name">
+          <img src="file/HAVA GLOBAL TRADİNG.png" alt="HAVA GLOBAL TRADE" style="height: 50px; width: auto; margin-bottom: 5px;">
+        </div>
+        <div class="logo-tag">Administration</div>
+      </div>
+    </div>
+  </a>
+  <div class="burger" id="burger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- LOGIN FORM -->
+<div id="loginForm" class="admin-login">
+  <h2 style="text-align: center; margin-bottom: 30px; color: var(--dark); font-family: 'Cormorant Garamond'; font-size: 2rem;">Connexion Administrateur</h2>
+  <div class="form-group">
+    <label for="username">Nom d'utilisateur</label>
+    <input type="text" id="username" placeholder="admin" autofocus>
+  </div>
+  <div class="form-group">
+    <label for="password">Mot de passe</label>
+    <input type="password" id="password" placeholder="mot de passe">
+  </div>
+  <button onclick="login()" class="btn-admin" style="width: 100%; font-size: 1rem; padding: 14px;">Se connecter</button>
+  <p id="loginError" style="color: #dc3545; margin-top: 15px; display: none; text-align: center;">❌ Identifiants incorrects. Essayez admin / hava2024</p>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="adminPanel" class="admin-panel admin-container">
+  <div class="form-section" style="display: flex; justify-content: space-between; align-items: center;">
+    <h1 style="margin: 0; color: var(--dark); font-family: 'Cormorant Garamond'; font-size: 2rem;">🔧 Gestion des Produits</h1>
+    <button onclick="logout()" class="btn-logout btn-admin">Déconnexion</button>
+  </div>
+
+  <!-- ADD PRODUCT FORM -->
+  <div class="form-section">
+    <h2 style="color: var(--dark); margin-top: 0;">Ajouter un Nouveau Produit</h2>
+    <div id="successMessage" class="alert alert-success" style="display: none;"></div>
+    <div id="errorMessage" class="alert alert-error" style="display: none;"></div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+      <div class="form-group">
+        <label for="category">Catégorie *</label>
+        <select id="category" required>
+          <option value="">Sélectionner une catégorie</option>
+          <option value="textile">👔 Textile & Vestimentaire</option>
+          <option value="mobilier">🏠 Équipement & Mobilier</option>
+          <option value="sante">💊 Santé & Bien-être</option>
+          <option value="alimentaire">🍯 Produits Alimentaires</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="productPrice">Prix (EUR) *</label>
+        <input type="number" id="productPrice" step="0.01" placeholder="29.99" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="productName">Nom du Produit *</label>
+      <input type="text" id="productName" placeholder="Ex: Chemise formelle premium" required>
+    </div>
+
+    <div class="form-group">
+      <label for="productImage">URL de l'Image (Unsplash ou autre) *</label>
+      <input type="url" id="productImage" placeholder="https://images.unsplash.com/..." required>
+    </div>
+
+    <div class="form-group">
+      <label for="productSpecs">Spécifications (une par ligne)</label>
+      <textarea id="productSpecs" placeholder="Matériau: Coton premium&#10;Taille: S, M, L, XL&#10;Couleur: Blanc, Bleu"></textarea>
+    </div>
+
+    <button onclick="addProduct()" class="btn-admin">✓ Ajouter le Produit</button>
+  </div>
+
+  <!-- FILTER AND LIST -->
+  <div class="form-section">
+    <h2 style="color: var(--dark); margin-top: 0;">Produits Existants</h2>
+    
+    <div class="filter-buttons">
+      <button class="filter-btn active" onclick="filterProducts('all')">Tous</button>
+      <button class="filter-btn" onclick="filterProducts('textile')">👔 Textile</button>
+      <button class="filter-btn" onclick="filterProducts('mobilier')">🏠 Mobilier</button>
+      <button class="filter-btn" onclick="filterProducts('sante')">💊 Santé</button>
+      <button class="filter-btn" onclick="filterProducts('alimentaire')">🍯 Alimentaire</button>
+    </div>
+
+    <div id="productsContainer" class="product-grid"></div>
+  </div>
+</div>
+
+<script>
+// Configuration d'authentification
+const ADMIN_USER = 'admin';
+const ADMIN_PASS = 'hava2024';
+
+let isLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
+let currentFilter = 'all';
+
+function login() {
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+
+  if (username === ADMIN_USER && password === ADMIN_PASS) {
+    isLoggedIn = true;
+    localStorage.setItem('adminLoggedIn', 'true');
+    showAdminPanel();
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+    document.getElementById('password').value = '';
+  }
+}
+
+function logout() {
+  if (confirm('Êtes-vous sûr de vouloir vous déconnecter?')) {
+    isLoggedIn = false;
+    localStorage.removeItem('adminLoggedIn');
+    showLoginForm();
+  }
+}
+
+function showLoginForm() {
+  document.getElementById('loginForm').style.display = 'block';
+  document.getElementById('adminPanel').style.display = 'none';
+}
+
+function showAdminPanel() {
+  document.getElementById('loginForm').style.display = 'none';
+  document.getElementById('adminPanel').style.display = 'block';
+  loadProducts();
+}
+
+function addProduct() {
+  const category = document.getElementById('category').value;
+  const name = document.getElementById('productName').value.trim();
+  const image = document.getElementById('productImage').value.trim();
+  const price = document.getElementById('productPrice').value;
+  const specs = document.getElementById('productSpecs').value;
+
+  if (!category || !name || !image || !price) {
+    showError('❌ Veuillez remplir tous les champs obligatoires');
+    return;
+  }
+
+  if (parseFloat(price) <= 0) {
+    showError('❌ Le prix doit être positif');
+    return;
+  }
+
+  const product = {
+    id: Date.now(),
+    category,
+    name,
+    image,
+    price: parseFloat(price),
+    specs: specs.split('\n').map(s => s.trim()).filter(s => s.length > 0)
+  };
+
+  const products = JSON.parse(localStorage.getItem('havaProducts') || '[]');
+  products.push(product);
+  localStorage.setItem('havaProducts', JSON.stringify(products));
+
+  // Réinitialiser le formulaire
+  document.getElementById('productName').value = '';
+  document.getElementById('productImage').value = '';
+  document.getElementById('productPrice').value = '';
+  document.getElementById('productSpecs').value = '';
+  document.getElementById('category').value = '';
+
+  showSuccess('✅ Produit ajouté avec succès!');
+  loadProducts();
+}
+
+function loadProducts() {
+  const products = JSON.parse(localStorage.getItem('havaProducts') || '[]');
+  const container = document.getElementById('productsContainer');
+  container.innerHTML = '';
+
+  const filtered = currentFilter === 'all' 
+    ? products 
+    : products.filter(p => p.category === currentFilter);
+
+  if (filtered.length === 0) {
+    container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #999; padding: 40px;">Aucun produit dans cette catégorie.</p>';
+    return;
+  }
+
+  filtered.forEach(product => {
+    const categoryName = {
+      'textile': '👔 Textile',
+      'mobilier': '🏠 Mobilier',
+      'sante': '💊 Santé',
+      'alimentaire': '🍯 Alimentaire'
+    }[product.category] || product.category;
+
+    const div = document.createElement('div');
+    div.className = 'product-card';
+    div.innerHTML = `
+      <div class="product-info">
+        <h4>${product.name}</h4>
+        <p><strong>${product.price}€</strong></p>
+        <p style="color: var(--gold);">${categoryName}</p>
+        <p>${product.specs.length} spécifications</p>
+      </div>
+      <button onclick="deleteProduct(${product.id})" class="btn-delete">🗑 Supprimer</button>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function deleteProduct(id) {
+  if (confirm('⚠️ Êtes-vous sûr de vouloir supprimer ce produit? Cette action est irréversible.')) {
+    const products = JSON.parse(localStorage.getItem('havaProducts') || '[]');
+    const filtered = products.filter(p => p.id !== id);
+    localStorage.setItem('havaProducts', JSON.stringify(filtered));
+    loadProducts();
+    showSuccess('✅ Produit supprimé avec succès');
+  }
+}
+
+function filterProducts(category) {
+  currentFilter = category;
+  document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+  loadProducts();
+}
+
+function showSuccess(message) {
+  const msg = document.getElementById('successMessage');
+  msg.textContent = message;
+  msg.style.display = 'block';
+  setTimeout(() => msg.style.display = 'none', 4000);
+}
+
+function showError(message) {
+  const msg = document.getElementById('errorMessage');
+  msg.textContent = message;
+  msg.style.display = 'block';
+  setTimeout(() => msg.style.display = 'none', 4000);
+}
+
+function toggleMenu() {
+  // Menu burger pour mobile
+}
+
+// Initialiser
+window.addEventListener('load', () => {
+  if (isLoggedIn) {
+    showAdminPanel();
+  } else {
+    showLoginForm();
+  }
+});
+
+// Raccourci clavier: Ctrl+K pour se connecter rapidement en dev
+document.addEventListener('keydown', (e) => {
+  if (e.ctrlKey && e.key === 'k') {
+    document.getElementById('username').value = ADMIN_USER;
+    document.getElementById('password').value = ADMIN_PASS;
+    login();
+  }
+});
+</script>
+
+</body>
+</html>
