@@ -54,7 +54,10 @@
   <div style="max-width: 1200px; margin: 0 auto;">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
       <h2 style="font-size: 1.5rem; color: var(--dark);">Produits disponibles</h2>
-      <button onclick="showAddProductForm('textile')" style="background: var(--gold); color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">+ Ajouter un produit</button>
+      <div style="display: flex; gap: 12px; align-items: center;">
+        <button data-admin-only="true" onclick="showAddProductForm('textile')" style="background: var(--gold); color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">+ Ajouter un produit</button>
+        <button type="button" data-admin-login onclick="adminLogin()" style="padding: 10px 18px; background: #444; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.95rem;">Connexion admin</button>
+      </div>
     </div>
     <div id="textile-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px;">
       <!-- Les produits seront affichés ici -->

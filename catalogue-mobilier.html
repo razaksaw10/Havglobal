@@ -52,11 +52,14 @@
 <!-- CATALOGUE GRID -->
 <section style="padding: 80px 20px;">
   <div style="max-width: 1200px; margin: 0 auto;">
-    <div style="margin-bottom: 30px;">
-      <h2 style="color: var(--dark); font-size: 2.5rem; margin-bottom: 20px;">Catalogue Mobilier</h2>
-      <button id="add-mobilier-product" onclick="catalogManager.showAddProductForm('mobilier')" style="padding: 12px 30px; background: var(--gold); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 1rem;">
-        + Ajouter un Produit
-      </button>
+    <div style="margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+      <h2 style="color: var(--dark); font-size: 2.5rem; margin-bottom: 0;">Catalogue Mobilier</h2>
+      <div style="display: flex; gap: 12px; align-items: center;">
+        <button data-admin-only="true" id="add-mobilier-product" onclick="showAddProductForm('mobilier')" style="padding: 12px 30px; background: var(--gold); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 1rem;">
+          + Ajouter un Produit
+        </button>
+        <button type="button" data-admin-login onclick="adminLogin()" style="padding: 12px 18px; background: #444; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.95rem;">Connexion admin</button>
+      </div>
     </div>
     <div id="mobilier-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px;">
       <!-- Products will be dynamically loaded here by CatalogManager -->
