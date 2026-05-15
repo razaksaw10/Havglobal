@@ -209,6 +209,38 @@ function readFileAsDataURL(file) {
   });
 }
 
+function resizeImage(file, maxWidth, maxHeight) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      
+      let { width, height } = img;
+      const aspectRatio = width / height;
+      
+      if (width > height) {
+        if (width > maxWidth) {
+          width = maxWidth;
+          height = width / aspectRatio;
+        }
+      } else {
+        if (height > maxHeight) {
+          height = maxHeight;
+          width = height * aspectRatio;
+        }
+      }
+      
+      canvas.width = width;
+      canvas.height = height;
+      ctx.drawImage(img, 0, 0, width, height);
+      
+      canvas.toBlob(resolve, 'image/jpeg', 0.8);
+    };
+    img.src = URL.createObjectURL(file);
+  });
+}
+
 async function showProductForm(category, productId = null) {
   if (!isAdminMode()) {
     adminLogin();
@@ -241,7 +273,7 @@ async function showProductForm(category, productId = null) {
         <input type="file" name="imageFile" accept="image/*">
 
         <div class="product-image-preview">
-          <img src="${initialImage}" alt="Aperçu de l'image">
+          <img src="${initialImage}" alt="Aperçu de l'image" style="width: 100%; height: auto; max-height: 200px; object-fit: cover; border-radius: 4px;">
         </div>
 
         <label>Spécifications</label>
@@ -267,11 +299,18 @@ async function showProductForm(category, productId = null) {
     if (event.target === overlay) overlay.remove();
   });
 
-  fileInput.addEventListener('change', () => {
+  fileInput.addEventListener('change', async () => {
     const file = fileInput.files[0];
     if (file) {
-      selectedFile = file;
-      previewImg.src = URL.createObjectURL(file);
+      try {
+        const resizedBlob = await resizeImage(file, 800, 600); // Redimensionner à 800x600 max
+        selectedFile = resizedBlob;
+        previewImg.src = URL.createObjectURL(resizedBlob);
+      } catch (error) {
+        console.error('Erreur lors du redimensionnement:', error);
+        selectedFile = file;
+        previewImg.src = URL.createObjectURL(file);
+      }
     } else {
       selectedFile = null;
       previewImg.src = initialImage;
