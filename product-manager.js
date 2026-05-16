@@ -1,39 +1,95 @@
-// Gestionnaire complet des catalogues et produits
+// Product manager with server-side API storage
+const API_BASE = '/api';
+
+class ProductAPI {
+  static async request(path, options = {}) {
+    const response = await fetch(`${API_BASE}${path}`, {
+      headers: { 'Content-Type': 'application/json' },
+      ...options
+    });
+    if (!response.ok) {
+      const errorBody = await response.text();
+      throw new Error(`API request failed: ${response.status} ${response.statusText} ${errorBody}`);
+    }
+    if (response.status === 204) {
+      return null;
+    }
+    return response.json();
+  }
+
+  static getAllProducts() {
+    return this.request('/products');
+  }
+
+  static getProducts(category) {
+    let path = '/products';
+    if (category) {
+      path += `?category=${encodeURIComponent(category)}`;
+    }
+    return this.request(path);
+  }
+
+  static getProduct(id) {
+    return this.request(`/products/${encodeURIComponent(id)}`);
+  }
+
+  static createProduct(product) {
+    return this.request('/products', {
+      method: 'POST',
+      body: JSON.stringify(product)
+    });
+  }
+
+  static updateProduct(id, product) {
+    return this.request(`/products/${encodeURIComponent(id)}`, {
+      method: 'PUT',
+      body: JSON.stringify(product)
+    });
+  }
+
+  static deleteProduct(id) {
+    return this.request(`/products/${encodeURIComponent(id)}`, {
+      method: 'DELETE'
+    });
+  }
+}
+
 class CatalogManager {
   constructor(category) {
     this.category = category;
     this.container = null;
+    this.products = [];
   }
 
-  loadProducts() {
-    const allProducts = JSON.parse(localStorage.getItem('havaProducts') || '[]');
-    return allProducts.filter(product => product.category === this.category);
+  async loadProducts() {
+    try {
+      this.products = await ProductAPI.getProducts(this.category);
+    } catch (error) {
+      console.error('Unable to load products:', error);
+      this.products = [];
+    }
+    return this.products;
   }
 
-  getAllProducts() {
-    return JSON.parse(localStorage.getItem('havaProducts') || '[]');
-  }
-
-  saveProducts(products) {
-    this.products = products;
-    localStorage.setItem('havaProducts', JSON.stringify(products));
-  }
-
-  addProduct(product) {
+  async addProduct(product) {
     if (!isAdminMode()) {
-      alert('Accès réservé à l\'administrateur.');
+      alert('Acces reserve a l administrateur.');
       return;
     }
-    const allProducts = this.getAllProducts();
-    allProducts.push(product);
-    this.saveProducts(allProducts);
-    this.render();
+    try {
+      const createdProduct = await ProductAPI.createProduct(product);
+      this.products.push(createdProduct);
+      await this.render();
+    } catch (error) {
+      console.error('Unable to add product:', error);
+      alert('Erreur lors de l ajout du produit.');
+    }
   }
 
   createProductHTML(product) {
-    const specsHTML = product.specs && product.specs.length > 0 
+    const specsHTML = product.specs && product.specs.length > 0
       ? product.specs.map(spec => `<li style="margin-bottom: 5px; font-size: 0.9rem; color: #666;">• ${spec}</li>`).join('')
-      : '<li style="margin-bottom: 5px; font-size: 0.9rem; color: #666;">Détails disponibles</li>';
+      : '<li style="margin-bottom: 5px; font-size: 0.9rem; color: #666;">Details disponibles</li>';
 
     const adminButtonsHTML = isAdminMode() ? `
           <div style="position: absolute; top: 12px; right: 12px; display: flex; gap: 8px;">
@@ -59,49 +115,53 @@ class CatalogManager {
     `;
   }
 
-  removeProduct(productId) {
+  async removeProduct(productId) {
     if (!isAdminMode()) {
-      alert('Accès réservé à l\'administrateur.');
+      alert('Acces reserve a l administrateur.');
       return;
     }
     if (!confirm('Supprimer ce produit ?')) return;
-    this.products = this.products.filter(product => product.id !== productId);
-    this.saveProducts(this.products);
-    this.render();
+    try {
+      await ProductAPI.deleteProduct(productId);
+      this.products = this.products.filter(product => product.id !== productId);
+      await this.render();
+    } catch (error) {
+      console.error('Unable to delete product:', error);
+      alert('Erreur lors de la suppression du produit.');
+    }
   }
 
-  updateProduct(productId, updatedProduct) {
+  async updateProduct(productId, updatedProduct) {
     if (!isAdminMode()) {
-      alert('Accès réservé à l\'administrateur.');
+      alert('Acces reserve a l administrateur.');
       return;
     }
-    this.products = this.products.map(product =>
-      product.id === productId ? { ...product, ...updatedProduct } : product
-    );
-    this.saveProducts(this.products);
-    this.render();
+    try {
+      const savedProduct = await ProductAPI.updateProduct(productId, updatedProduct);
+      this.products = this.products.map(product =>
+        product.id === productId ? savedProduct : product
+      );
+      await this.render();
+    } catch (error) {
+      console.error('Unable to update product:', error);
+      alert('Erreur lors de la mise a jour du produit.');
+    }
   }
 
-  getProduct(productId) {
+  async getProduct(productId) {
+    if (!this.products || this.products.length === 0) {
+      await this.loadProducts();
+    }
     return this.products.find(product => product.id === productId);
   }
 
-  editProduct(productId) {
-    if (!isAdminMode()) {
-      adminLogin();
-      if (!isAdminMode()) return;
-    }
-    showProductForm(this.category, productId);
-  }
-
-  displayProducts() {
+  async displayProducts() {
     if (!this.container) return;
-    
-    this.products = this.loadProducts();
+    await this.loadProducts();
     this.container.innerHTML = '';
 
-    if (this.products.length === 0) {
-      this.container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #999; padding: 40px; font-style: italic;">Aucun produit disponible dans cette catégorie pour le moment.</p>';
+    if (!this.products || this.products.length === 0) {
+      this.container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #999; padding: 40px; font-style: italic;">Aucun produit disponible dans cette categorie pour le moment.</p>';
       return;
     }
 
@@ -112,14 +172,14 @@ class CatalogManager {
     });
   }
 
-  render() {
-    this.displayProducts();
+  async render() {
+    await this.displayProducts();
   }
 
-  init(containerSelector) {
+  async init(containerSelector) {
     this.container = document.querySelector(containerSelector);
     if (this.container) {
-      this.displayProducts();
+      await this.displayProducts();
       window[`catalogManager_${this.category}`] = this;
       updateAdminUI();
     }
@@ -128,12 +188,7 @@ class CatalogManager {
 
 const ADMIN_PASSWORD = 'Razak@1234';
 const ADMIN_SESSION_KEY = 'havaCatalogAdminMode';
-const SHOW_ADMIN_LOGIN_BY_DEFAULT = true; // Mets à true pour afficher le bouton au chargement
-
-function generateNewProductId() {
-  const products = JSON.parse(localStorage.getItem('havaProducts') || '[]');
-  return products.reduce((maxId, product) => Math.max(maxId, product.id || 0), 0) + 1;
-}
+const SHOW_ADMIN_LOGIN_BY_DEFAULT = true;
 
 function isAdminMode() {
   return sessionStorage.getItem(ADMIN_SESSION_KEY) === 'true';
@@ -157,7 +212,6 @@ function adminLogin() {
     setAdminMode(false);
     return;
   }
-
   const password = prompt('Mot de passe administrateur');
   if (password === ADMIN_PASSWORD) {
     setAdminMode(true);
@@ -173,7 +227,7 @@ function updateAdminUI() {
     el.style.display = showAdmin ? 'inline-flex' : 'none';
   });
   document.querySelectorAll('[data-admin-login]').forEach(el => {
-    el.textContent = showAdmin ? 'Déconnexion admin' : 'Connexion admin';
+    el.textContent = showAdmin ? 'Deconnexion admin' : 'Connexion admin';
   });
   Object.keys(window).forEach(key => {
     if (key.startsWith('catalogManager_')) {
@@ -215,10 +269,8 @@ function resizeImage(file, maxWidth, maxHeight) {
     img.onload = () => {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
-      
       let { width, height } = img;
       const aspectRatio = width / height;
-      
       if (width > height) {
         if (width > maxWidth) {
           width = maxWidth;
@@ -230,11 +282,9 @@ function resizeImage(file, maxWidth, maxHeight) {
           width = height * aspectRatio;
         }
       }
-      
       canvas.width = width;
       canvas.height = height;
       ctx.drawImage(img, 0, 0, width, height);
-      
       canvas.toBlob(resolve, 'image/jpeg', 0.8);
     };
     img.src = URL.createObjectURL(file);
@@ -252,8 +302,8 @@ async function showProductForm(category, productId = null) {
   if (!manager) return;
 
   const isEdit = productId !== null;
-  const product = isEdit ? manager.getProduct(productId) : null;
-  const placeholderImage = 'https://via.placeholder.com/500x300?text=Aperçu';
+  const product = isEdit ? await manager.getProduct(productId) : null;
+  const placeholderImage = 'https://via.placeholder.com/500x300?text=Apercu';
   const initialImage = product ? product.image : placeholderImage;
 
   const overlay = document.createElement('div');
@@ -265,29 +315,22 @@ async function showProductForm(category, productId = null) {
       <form id="product-form">
         <label>Nom du produit</label>
         <input type="text" name="name" required placeholder="Nom du produit" value="${product ? product.name : ''}">
-
         <label>Prix (€)</label>
         <input type="number" name="price" required step="0.01" min="0" placeholder="Prix" value="${product ? product.price : ''}">
-
         <label>Image locale</label>
         <input type="file" name="imageFile" accept="image/*">
-
         <label>Taille de l'image</label>
         <select name="imageSize">
           <option value="small">Petit (400x300)</option>
           <option value="medium" selected>Moyen (600x400)</option>
           <option value="large">Grand (800x600)</option>
         </select>
-
         <div class="product-image-preview">
-          <img src="${initialImage}" alt="Aperçu de l'image" style="width: 100%; height: auto; max-height: 200px; object-fit: cover; border-radius: 4px;">
+          <img src="${initialImage}" alt="Apercu de l'image" style="width: 100%; height: auto; max-height: 200px; object-fit: cover; border-radius: 4px;">
         </div>
-
-        <label>Spécifications</label>
-        <textarea name="specs" placeholder="Une ligne par spécification">${product && product.specs ? product.specs.join('\n') : ''}</textarea>
-
+        <label>Specifications</label>
+        <textarea name="specs" placeholder="Une ligne par specification">${product && product.specs ? product.specs.join('\n') : ''}</textarea>
         <p class="form-error" aria-live="polite"></p>
-
         <button type="submit">${isEdit ? 'Enregistrer' : 'Ajouter'}</button>
       </form>
     </div>
@@ -321,7 +364,7 @@ async function showProductForm(category, productId = null) {
         selectedFile = resizedBlob;
         previewImg.src = URL.createObjectURL(resizedBlob);
       } catch (error) {
-        console.error('Erreur lors du redimensionnement:', error);
+        console.error('Error resizing image:', error);
         selectedFile = file;
         previewImg.src = URL.createObjectURL(file);
       }
@@ -348,7 +391,7 @@ async function showProductForm(category, productId = null) {
     }
 
     if (Number.isNaN(price) || price < 0) {
-      errorMessage.textContent = 'Le prix doit être un nombre positif.';
+      errorMessage.textContent = 'Le prix doit etre un nombre positif.';
       return;
     }
 
@@ -357,7 +400,7 @@ async function showProductForm(category, productId = null) {
       try {
         image = await readFileAsDataURL(selectedFile);
       } catch (error) {
-        errorMessage.textContent = 'Impossible de lire l’image.';
+        errorMessage.textContent = 'Impossible de lire l image.';
         return;
       }
     }
@@ -371,9 +414,9 @@ async function showProductForm(category, productId = null) {
     };
 
     if (isEdit) {
-      manager.updateProduct(productId, updatedProduct);
+      await manager.updateProduct(productId, updatedProduct);
     } else {
-      manager.addProduct({ id: generateNewProductId(), ...updatedProduct });
+      await manager.addProduct(updatedProduct);
     }
 
     overlay.remove();
@@ -384,7 +427,6 @@ function showAddProductForm(category) {
   showProductForm(category);
 }
 
-// Fonction pour initialiser un catalogue
 function initCatalog(category, containerSelector) {
   const manager = new CatalogManager(category);
   manager.init(containerSelector);
