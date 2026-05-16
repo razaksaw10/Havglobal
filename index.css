@@ -275,6 +275,8 @@ footer { background:var(--dark); padding:40px 8%; display:flex; flex-direction:c
   padding: 28px;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22);
   position: relative;
+  max-height: 80vh;
+  overflow-y: auto;
 }
 
 .product-modal h2 {

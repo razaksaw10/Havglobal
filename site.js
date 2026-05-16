@@ -5,7 +5,10 @@ window.toggleMenu = function toggleMenu() {
 
 window.sendForm = function sendForm() {
   const fn = document.getElementById('fn')?.value.trim() ?? '';
+  const ln = document.getElementById('ln')?.value.trim() ?? '';
   const em = document.getElementById('em')?.value.trim() ?? '';
+  const co = document.getElementById('co')?.value.trim() ?? '';
+  const sec = document.getElementById('sec')?.value ?? '';
   const msg = document.getElementById('msg')?.value.trim() ?? '';
   const fb = document.getElementById('fmsg');
   if (!fb) return;
@@ -14,13 +17,31 @@ window.sendForm = function sendForm() {
     fb.textContent = '⚠ Veuillez remplir tous les champs obligatoires.';
     return;
   }
-  fb.style.cssText = 'display:block;background:#f0fdf4;border:1px solid #86efac;color:#16a34a;border-radius:7px;padding:11px 15px;font-size:.84rem;';
-  fb.textContent = '✓ Merci ! Votre message a bien été envoyé. Réponse sous 24h.';
-  ['fn','ln','em','co','sec','msg'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.value = '';
-  });
-  setTimeout(() => { if (fb) fb.style.display = 'none'; }, 6000);
+
+  // Envoyer l'email via EmailJS
+  const templateParams = {
+    from_name: `${fn} ${ln}`,
+    from_email: em,
+    company: co,
+    sector: sec,
+    message: msg,
+    to_email: 'abdoulswdg01@gmail.com'
+  };
+
+  emailjs.send('service_anzrwp4', 'template_1d1cowj', templateParams)
+    .then(function(response) {
+      fb.style.cssText = 'display:block;background:#f0fdf4;border:1px solid #86efac;color:#16a34a;border-radius:7px;padding:11px 15px;font-size:.84rem;';
+      fb.textContent = '✓ Merci ! Votre message a bien été envoyé. Réponse sous 24h.';
+      ['fn','ln','em','co','sec','msg'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+      });
+      setTimeout(() => { if (fb) fb.style.display = 'none'; }, 6000);
+    }, function(error) {
+      fb.style.cssText = 'display:block;background:#fef2f2;border:1px solid #fca5a5;color:#dc2626;border-radius:7px;padding:11px 15px;font-size:.84rem;';
+      fb.textContent = '❌ Erreur lors de l\'envoi. Veuillez réessayer ou nous contacter directement.';
+      console.error('EmailJS error:', error);
+    });
 };
 
 function updateNavbarOnScroll() {

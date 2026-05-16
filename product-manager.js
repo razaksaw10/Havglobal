@@ -37,7 +37,7 @@ class CatalogManager {
 
     const adminButtonsHTML = isAdminMode() ? `
           <div style="position: absolute; top: 12px; right: 12px; display: flex; gap: 8px;">
-            <button type="button" onclick="window.catalogManager_${this.category}.deleteProduct(${product.id})" style="background: rgba(255, 75, 75, 0.95); color: white; border: none; border-radius: 50%; width: 34px; height: 34px; cursor: pointer; font-size: 18px;">×</button>
+            <button type="button" onclick="window.catalogManager_${this.category}.removeProduct(${product.id})" style="background: rgba(255, 75, 75, 0.95); color: white; border: none; border-radius: 50%; width: 34px; height: 34px; cursor: pointer; font-size: 18px;">×</button>
             <button type="button" onclick="window.catalogManager_${this.category}.editProduct(${product.id})" style="background: rgba(0, 0, 0, 0.75); color: white; border: none; border-radius: 50%; width: 34px; height: 34px; cursor: pointer; font-size: 16px;">✎</button>
           </div>
         ` : '';
@@ -45,7 +45,7 @@ class CatalogManager {
     return `
       <div style="background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); transition: transform 0.3s; position: relative;">
         <div style="position: relative;">
-          <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 250px; object-fit: cover; display: block;">
+          <img src="${product.image}" alt="${product.name}" style="width: 100%; height: auto; max-height: 250px; object-fit: contain; display: block;">
           ${adminButtonsHTML}
         </div>
         <div style="padding: 20px;">
@@ -126,9 +126,9 @@ class CatalogManager {
   }
 }
 
-const ADMIN_PASSWORD = 'HAVAadmin2026!';
+const ADMIN_PASSWORD = 'Razak@1234';
 const ADMIN_SESSION_KEY = 'havaCatalogAdminMode';
-const SHOW_ADMIN_LOGIN_BY_DEFAULT = True; // Mets à true pour afficher le bouton au chargement
+const SHOW_ADMIN_LOGIN_BY_DEFAULT = true; // Mets à true pour afficher le bouton au chargement
 
 function generateNewProductId() {
   const products = JSON.parse(localStorage.getItem('havaProducts') || '[]');
@@ -272,6 +272,13 @@ async function showProductForm(category, productId = null) {
         <label>Image locale</label>
         <input type="file" name="imageFile" accept="image/*">
 
+        <label>Taille de l'image</label>
+        <select name="imageSize">
+          <option value="small">Petit (400x300)</option>
+          <option value="medium" selected>Moyen (600x400)</option>
+          <option value="large">Grand (800x600)</option>
+        </select>
+
         <div class="product-image-preview">
           <img src="${initialImage}" alt="Aperçu de l'image" style="width: 100%; height: auto; max-height: 200px; object-fit: cover; border-radius: 4px;">
         </div>
@@ -299,11 +306,18 @@ async function showProductForm(category, productId = null) {
     if (event.target === overlay) overlay.remove();
   });
 
+  const sizes = {
+    small: { w: 400, h: 300 },
+    medium: { w: 600, h: 400 },
+    large: { w: 800, h: 600 }
+  };
+
   fileInput.addEventListener('change', async () => {
     const file = fileInput.files[0];
     if (file) {
       try {
-        const resizedBlob = await resizeImage(file, 800, 600); // Redimensionner à 800x600 max
+        const size = sizes[form.imageSize.value];
+        const resizedBlob = await resizeImage(file, size.w, size.h);
         selectedFile = resizedBlob;
         previewImg.src = URL.createObjectURL(resizedBlob);
       } catch (error) {
