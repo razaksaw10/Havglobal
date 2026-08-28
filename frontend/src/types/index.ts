@@ -7,10 +7,12 @@ export interface Category {
   id: number;
   slug: string;
   name: string;
-  icon: string;
+  icon?: string;
   description?: string;
   orderIndex?: number;
   productsCount?: number;
+  _count?: { products: number };
+  createdAt?: string;
 }
 
 export interface Product {
@@ -31,13 +33,15 @@ export interface Product {
   stock: number;
   isFeatured: boolean;
   is_featured?: boolean;
-  createdAt: string;
+  createdAt?: string;
   created_at?: string;
-  updatedAt: string;
+  updatedAt?: string;
   updated_at?: string;
   category?: {
+    id?: number;
     name: string;
-    icon: string;
+    slug?: string;
+    icon?: string;
   };
   category_name?: string;
   category_icon?: string;

@@ -9,13 +9,15 @@ import ProductCard from '../../components/ProductCard';
 import ProductModal from '../../components/ProductModal';
 import QuoteModal from '../../components/QuoteModal';
 
+import { FALLBACK_CATEGORIES, FALLBACK_PRODUCTS } from '../../lib/fallbackData';
+
 function CatalogueContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [categories, setCategories] = useState<Category[]>(FALLBACK_CATEGORIES);
+  const [products, setProducts] = useState<Product[]>(FALLBACK_PRODUCTS);
+  const [loading, setLoading] = useState(false);
 
   const initialCategory = searchParams.get('category') || 'all';
   const [activeCategory, setActiveCategory] = useState(initialCategory);
@@ -38,14 +40,17 @@ function CatalogueContent() {
     api
       .getCategories()
       .then((res) => {
-        setCategories(res.categories || []);
+        if (res.categories && res.categories.length > 0) {
+          setCategories(res.categories);
+        }
       })
-      .catch((err) => console.error('Error fetching categories:', err));
+      .catch((err) => {
+        console.warn('Utilisation des catégories locales :', err.message);
+      });
   }, []);
 
   // Fetch products when filters change
   useEffect(() => {
-    setLoading(true);
     api
       .getProducts({
         category: activeCategory === 'all' ? undefined : activeCategory,
@@ -54,10 +59,50 @@ function CatalogueContent() {
         limit: 50,
       })
       .then((res) => {
-        setProducts(res.products || []);
+        if (res.products && res.products.length > 0) {
+          setProducts(res.products);
+        } else if (activeCategory !== 'all' || searchTerm.trim()) {
+          // If filtering locally
+          let filtered = [...FALLBACK_PRODUCTS];
+          if (activeCategory !== 'all') {
+            filtered = filtered.filter((p) => p.categorySlug === activeCategory);
+          }
+          if (searchTerm.trim()) {
+            const q = searchTerm.toLowerCase();
+            filtered = filtered.filter(
+              (p) =>
+                p.name.toLowerCase().includes(q) ||
+                p.description.toLowerCase().includes(q),
+            );
+          }
+          if (sortBy === 'price_asc') {
+            filtered.sort((a, b) => a.price - b.price);
+          } else if (sortBy === 'price_desc') {
+            filtered.sort((a, b) => b.price - a.price);
+          }
+          setProducts(filtered);
+        }
       })
       .catch((err) => {
-        console.error('Error fetching products:', err);
+        console.warn('Utilisation des produits de secours :', err.message);
+        let filtered = [...FALLBACK_PRODUCTS];
+        if (activeCategory !== 'all') {
+          filtered = filtered.filter((p) => p.categorySlug === activeCategory);
+        }
+        if (searchTerm.trim()) {
+          const q = searchTerm.toLowerCase();
+          filtered = filtered.filter(
+            (p) =>
+              p.name.toLowerCase().includes(q) ||
+              p.description.toLowerCase().includes(q),
+          );
+        }
+        if (sortBy === 'price_asc') {
+          filtered.sort((a, b) => a.price - b.price);
+        } else if (sortBy === 'price_desc') {
+          filtered.sort((a, b) => b.price - a.price);
+        }
+        setProducts(filtered);
       })
       .finally(() => {
         setLoading(false);

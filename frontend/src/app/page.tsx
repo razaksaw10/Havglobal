@@ -23,9 +23,13 @@ import ProductCard from '../components/ProductCard';
 import ProductModal from '../components/ProductModal';
 import QuoteModal from '../components/QuoteModal';
 
+import { FALLBACK_PRODUCTS } from '../lib/fallbackData';
+
 export default function HomePage() {
-  const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
-  const [loadingProducts, setLoadingProducts] = useState(true);
+  const [featuredProducts, setFeaturedProducts] = useState<Product[]>(
+    FALLBACK_PRODUCTS.filter((p) => p.isFeatured).slice(0, 4),
+  );
+  const [loadingProducts, setLoadingProducts] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [quoteModalOpen, setQuoteModalOpen] = useState(false);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
@@ -43,10 +47,12 @@ export default function HomePage() {
     api
       .getProducts({ featured: true, limit: 4 })
       .then((res) => {
-        setFeaturedProducts(res.products || []);
+        if (res.products && res.products.length > 0) {
+          setFeaturedProducts(res.products);
+        }
       })
       .catch((err) => {
-        console.error('Error fetching featured products:', err);
+        console.warn('Produits vedettes locaux utilisés :', err.message);
       })
       .finally(() => {
         setLoadingProducts(false);
