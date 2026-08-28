@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catalogue Produits & Sourcing – HAVA Global Trade</title>
+  <meta name="description" content="Catalogue complet des produits d'exportation turcs de HAVA Global Trade : Textile, Mobilier, Santé, Agroalimentaire. Commandes en gros et conteneurs.">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="/" class="brand-logo">
+          <img src="/file/HAVA GLOBAL TRADİNG.png" alt="HAVA GLOBAL TRADE Logo">
+          <div class="brand-info">
+            <span class="brand-name">HAVA Global</span>
+            <span class="brand-tag">Catalogue Export</span>
+          </div>
+        </a>
+
+        <ul class="nav-menu">
+          <li class="nav-item"><a href="/" class="nav-link">Accueil</a></li>
+          <li class="nav-item"><a href="/catalogue.html" class="nav-link active">Catalogue Produits</a></li>
+          <li class="nav-item"><a href="/services.html" class="nav-link">Services & Sourcing</a></li>
+          <li class="nav-item"><a href="/engagements.html" class="nav-link">Nos Engagements</a></li>
+          <li class="nav-item"><a href="/contact.html" class="nav-link">Contact & Devis</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <a href="/contact.html" class="btn btn-gold btn-sm">Demander un Devis</a>
+          <a href="/admin.html" class="btn btn-outline btn-sm">Admin 🔒</a>
+          <button class="mobile-toggle" aria-label="Menu Mobile">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- PAGE HERO -->
+  <section style="padding: 130px 0 50px; background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg-page) 100%); border-bottom: 1px solid var(--border-color);">
+    <div class="container">
+      <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+        <span class="section-eyebrow">Catalogue Général</span>
+        <h1 class="section-title" style="margin-bottom: 14px;">Nos Gammes & Produits d'Usine</h1>
+        <p class="section-subtitle">
+          Découvrez notre catalogue de produits turcs certifiés prêts à l'exportation. Tarifs direct usine, contrôle qualité rigoureux et logistique complète.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATALOGUE INTERACTION -->
+  <section class="section" style="padding-top: 40px;">
+    <div class="container">
+      
+      <!-- CONTROLS: Category Tabs + Search + Sort -->
+      <div class="catalog-controls">
+        <div class="category-tabs" id="category-tabs-container">
+          <!-- Loaded dynamically via catalogue.js -->
+        </div>
+
+        <div style="display: flex; gap: 14px; align-items: center; flex-wrap: wrap;">
+          <div class="catalog-search-box">
+            <span>🔍</span>
+            <input type="text" id="catalog-search" placeholder="Rechercher un produit...">
+          </div>
+
+          <select id="catalog-sort" style="padding: 8px 14px; border: 1px solid var(--border-color); border-radius: var(--radius-full); background: var(--bg-card); font-size: 0.88rem; color: var(--charcoal); outline: none;">
+            <option value="default">Tri : Par défaut</option>
+            <option value="price_asc">Prix : Croissant</option>
+            <option value="price_desc">Prix : Décroissant</option>
+            <option value="name_asc">Nom : A ➔ Z</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center;">
+        <span id="products-count-badge" style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted);">
+          Chargement des références...
+        </span>
+        <span style="font-size: 0.85rem; color: var(--gold); font-weight: 600;">
+          ⭐ Fabrication Directe Turquie
+        </span>
+      </div>
+
+      <!-- PRODUCTS GRID -->
+      <div class="products-grid" id="catalog-products-container">
+        <!-- Injected dynamically via catalogue.js -->
+      </div>
+
+      <!-- SPECIAL SOURCING BANNER -->
+      <div style="margin-top: 80px; background: var(--bg-alt); border-radius: var(--radius-md); border: 1px solid var(--border-color); padding: 40px 30px; text-align: center;">
+        <div style="font-size: 2.5rem; margin-bottom: 12px;">🏭</div>
+        <h3 style="font-family: var(--font-serif); font-size: 2rem; color: var(--dark); margin-bottom: 10px;">
+          Vous cherchez une référence non présente au catalogue ?
+        </h3>
+        <p style="color: var(--text-muted); max-width: 620px; margin: 0 auto 24px; font-size: 1rem;">
+          Notre bureau d'Istanbul réalise des missions de sourcing sur mesure dans tous les secteurs industriels en Turquie. Nous trouvons l'usine parfaite pour vous.
+        </p>
+        <a href="/contact.html?subject=Demande%20de%20Sourcing%20Sur-Mesure" class="btn btn-dark">
+          Soumettre une Demande de Sourcing Dédiée →
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-about">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+            <img src="/file/HAVA GLOBAL TRADİNG.png" alt="HAVA Global" style="height: 42px;">
+            <span style="font-family: var(--font-serif); font-size: 1.4rem; font-weight: 700; color: #fff;">HAVA Global Trade</span>
+          </div>
+          <p>Fournisseur de référence pour l'importation de produits turcs. Accompagnement B2B clé en main.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Secteurs</h4>
+          <ul class="footer-links">
+            <li><a href="/catalogue.html?category=textile">👔 Textile & Confection</a></li>
+            <li><a href="/catalogue.html?category=mobilier">🏠 Mobilier & Agencement</a></li>
+            <li><a href="/catalogue.html?category=sante">💊 Santé & Cosmétiques</a></li>
+            <li><a href="/catalogue.html?category=alimentaire">🍯 Agroalimentaire</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="/">Accueil</a></li>
+            <li><a href="/catalogue.html">Catalogue Général</a></li>
+            <li><a href="/services.html">Services & Logistique</a></li>
+            <li><a href="/contact.html">Demander un Devis</a></li>
+            <li><a href="/admin.html">Espace Admin</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact Export</h4>
+          <div class="footer-contact-item">
+            <span class="icon">📍</span>
+            <span>Istanbul, Turquie</span>
+          </div>
+          <div class="footer-contact-item">
+            <span class="icon">📞</span>
+            <span>+90 543 173 61 73</span>
+          </div>
+          <div class="footer-contact-item">
+            <span class="icon">✉️</span>
+            <span>havaglobaltrade@gmail.com</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 HAVA Global Trade. Tous droits réservés.</span>
+        <span>Catalogue Export Turquie</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="/js/api.js"></script>
+  <script src="/js/app.js"></script>
+  <script src="/js/catalogue.js"></script>
+</body>
+</html>

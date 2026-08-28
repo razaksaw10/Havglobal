@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panneau d'Administration Enterprise – HAVA Global Trade</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-body">
+
+  <!-- LOGIN OVERLAY -->
+  <div id="admin-login-overlay" class="admin-login-wrapper">
+    <div class="login-card">
+      <img src="/file/HAVA GLOBAL TRADİNG.png" alt="HAVA Global Trade" class="login-logo">
+      <h2 class="login-title">Espace Administration</h2>
+      <p class="login-subtitle">Connectez-vous pour gérer le catalogue, les devis et les activités B2B.</p>
+
+      <form id="admin-login-form">
+        <div class="form-group">
+          <label class="form-label" for="login-email">Adresse Email</label>
+          <input type="email" id="login-email" class="form-input" placeholder="admin@havaglobaltrade.com" required value="admin@havaglobaltrade.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="login-password">Mot de passe</label>
+          <input type="password" id="login-password" class="form-input" placeholder="••••••••" required value="HavaAdmin2026!">
+        </div>
+        <button type="submit" class="btn-admin">Se connecter au tableau de bord</button>
+      </form>
+
+      <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--admin-border); font-size: 0.82rem; color: var(--admin-muted);">
+        <a href="/" style="color: var(--admin-primary); text-decoration: none;">← Retourner au site public</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN MAIN LAYOUT -->
+  <div id="admin-main-layout" style="display: flex; width: 100%;">
+    
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-brand">
+        <img src="/file/HAVA GLOBAL TRADİNG.png" alt="HAVA Global Trade">
+        <div>
+          <strong style="display: block; font-size: 1.05rem; font-family: var(--font-serif);">HAVA Admin</strong>
+          <span style="font-size: 0.68rem; color: var(--admin-primary); letter-spacing: 1px; text-transform: uppercase;">Prisma Enterprise</span>
+        </div>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li>
+          <a class="nav-admin-link active" data-tab="dashboard">
+            <span class="icon">📊</span> Tableau de bord
+          </a>
+        </li>
+        <li>
+          <a class="nav-admin-link" data-tab="products">
+            <span class="icon">📦</span> Gestion Produits
+          </a>
+        </li>
+        <li>
+          <a class="nav-admin-link" data-tab="inquiries">
+            <span class="icon">📬</span> Devis & Messages
+          </a>
+        </li>
+        <li>
+          <a href="/" target="_blank" class="nav-admin-link">
+            <span class="icon">🌐</span> Voir le site public
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <div style="margin-bottom: 12px; font-size: 0.85rem; color: #94a3b8;">
+          Connecté en tant que :<br>
+          <strong id="admin-display-name" style="color: #fff;">Directeur HAVA Global</strong>
+        </div>
+        <button class="btn-logout" onclick="adminLogout()">
+          <span>🚪</span> Se déconnecter
+        </button>
+      </div>
+    </aside>
+
+    <!-- CONTENT AREA -->
+    <main class="admin-content">
+      
+      <!-- TOPBAR -->
+      <header class="admin-topbar">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <h1 id="admin-page-title" style="font-size: 1.4rem; margin: 0; color: #fff;">Tableau de Bord</h1>
+          <span style="background: rgba(217, 119, 6, 0.15); color: var(--admin-primary); padding: 3px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 600;">v2.1 Enterprise</span>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center;">
+          <span id="current-date-badge" style="font-size: 0.82rem; color: var(--admin-muted);"></span>
+          <button onclick="refreshDashboard()" class="btn btn-outline btn-sm" title="Actualiser les données">🔄 Actualiser</button>
+        </div>
+      </header>
+
+      <!-- VIEWS CONTAINER -->
+      <div class="admin-view-container">
+
+        <!-- TAB 1: DASHBOARD -->
+        <div id="tab-dashboard" class="admin-tab-content active">
+          
+          <!-- KPI GRID -->
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <span class="kpi-icon">📦</span>
+              <span class="kpi-value" id="kpi-products">0</span>
+              <span class="kpi-label">Références au Catalogue</span>
+            </div>
+
+            <div class="kpi-card">
+              <span class="kpi-icon">📬</span>
+              <span class="kpi-value" id="kpi-inquiries">0</span>
+              <span class="kpi-label">Demandes Reçues</span>
+            </div>
+
+            <div class="kpi-card" style="border-left-color: #ef4444;">
+              <span class="kpi-icon">🔥</span>
+              <span class="kpi-value" id="kpi-new-inquiries">0</span>
+              <span class="kpi-label">Nouveaux Devis à Traiter</span>
+            </div>
+
+            <div class="kpi-card" style="border-left-color: #10b981;">
+              <span class="kpi-icon">✅</span>
+              <span class="kpi-value" id="kpi-resolved-inquiries">0</span>
+              <span class="kpi-label">Cotations Traitées</span>
+            </div>
+          </div>
+
+          <!-- SECTOR DISTRIBUTION & RECENT PRODUCTS -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+            <div class="admin-card">
+              <h3 style="font-size: 1.1rem; margin-bottom: 16px; color: #fff;">📊 Répartition par Secteur</h3>
+              <div id="category-distribution-list" style="display: flex; flex-direction: column; gap: 12px;">
+                <!-- Injected via admin.js -->
+              </div>
+            </div>
+
+            <div class="admin-card">
+              <h3 style="font-size: 1.1rem; margin-bottom: 16px; color: #fff;">✨ Derniers Produits Ajoutés</h3>
+              <div id="recent-products-list" style="display: flex; flex-direction: column; gap: 10px;">
+                <!-- Injected via admin.js -->
+              </div>
+            </div>
+          </div>
+
+          <!-- RECENT INQUIRIES -->
+          <div class="admin-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+              <h3 style="font-size: 1.1rem; margin: 0; color: #fff;">📬 Dernières Demandes de Devis Reçues</h3>
+              <button onclick="switchTab('inquiries')" class="btn btn-outline btn-sm">Voir tout</button>
+            </div>
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Client</th>
+                    <th>Entreprise</th>
+                    <th>Objet</th>
+                    <th>Statut</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody id="recent-inquiries-tbody">
+                  <!-- Injected via admin.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: PRODUCTS -->
+        <div id="tab-products" class="admin-tab-content">
+          <div class="admin-card">
+            <div class="card-toolbar">
+              <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                <div class="search-input-wrap">
+                  <span>🔍</span>
+                  <input type="text" id="admin-product-search" placeholder="Filtrer par nom ou description..." oninput="debounceFilterProducts()">
+                </div>
+
+                <select id="admin-product-cat-filter" class="form-select" style="width: auto; padding: 9px 14px;" onchange="filterAdminProducts()">
+                  <option value="all">Toutes les catégories</option>
+                  <option value="textile">👔 Textile</option>
+                  <option value="mobilier">🏠 Mobilier</option>
+                  <option value="sante">💊 Santé</option>
+                  <option value="alimentaire">🍯 Agroalimentaire</option>
+                </select>
+              </div>
+
+              <button onclick="openAddProductModal()" class="btn btn-gold btn-sm">
+                + Nouveau Produit
+              </button>
+            </div>
+
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Image</th>
+                    <th>Nom du Produit</th>
+                    <th>Secteur</th>
+                    <th>Prix Indicatif</th>
+                    <th>Stock</th>
+                    <th>Date d'Ajout</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-products-tbody">
+                  <!-- Injected via admin.js -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Pagination Produits -->
+            <div id="products-pagination" style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--admin-border);">
+              <span id="products-page-info" style="font-size: 0.85rem; color: var(--admin-muted);">Chargement...</span>
+              <div style="display: flex; gap: 8px;">
+                <button id="btn-prev-products" class="btn btn-outline btn-sm" onclick="changeProductsPage(-1)">← Précédent</button>
+                <button id="btn-next-products" class="btn btn-outline btn-sm" onclick="changeProductsPage(1)">Suivant →</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: INQUIRIES -->
+        <div id="tab-inquiries" class="admin-tab-content">
+          <div class="admin-card">
+            <div class="card-toolbar">
+              <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                <div class="search-input-wrap">
+                  <span>🔍</span>
+                  <input type="text" id="admin-inquiry-search" placeholder="Rechercher par nom, email, objet..." oninput="debounceFilterInquiries()">
+                </div>
+
+                <select id="admin-inquiry-status-filter" class="form-select" style="width: auto; padding: 9px 14px;" onchange="filterAdminInquiries()">
+                  <option value="all">Tous les statuts</option>
+                  <option value="new">Nouveaux (En attente)</option>
+                  <option value="in_progress">En cours d'étude</option>
+                  <option value="resolved">Traités & Devis envoyés</option>
+                </select>
+              </div>
+
+              <button onclick="exportInquiriesToCsv()" class="btn btn-outline btn-sm" title="Télécharger un export CSV de toutes les demandes">
+                📥 Exporter en CSV
+              </button>
+            </div>
+
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Contact</th>
+                    <th>Coordonnées</th>
+                    <th>Entreprise / Pays</th>
+                    <th>Objet</th>
+                    <th>Statut</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-inquiries-tbody">
+                  <!-- Injected via admin.js -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Pagination Inquiries -->
+            <div id="inquiries-pagination" style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--admin-border);">
+              <span id="inquiries-page-info" style="font-size: 0.85rem; color: var(--admin-muted);">Chargement...</span>
+              <div style="display: flex; gap: 8px;">
+                <button id="btn-prev-inquiries" class="btn btn-outline btn-sm" onclick="changeInquiriesPage(-1)">← Précédent</button>
+                <button id="btn-next-inquiries" class="btn btn-outline btn-sm" onclick="changeInquiriesPage(1)">Suivant →</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- ADD / EDIT PRODUCT MODAL -->
+  <div id="product-form-modal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 640px;">
+      <div class="modal-header">
+        <h3 id="modal-product-form-title">Ajouter un Produit</h3>
+        <button class="modal-close" onclick="closeProductFormModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="product-form">
+          
+          <div class="form-group">
+            <label class="form-label" for="prod-name">Nom du Produit *</label>
+            <input type="text" id="prod-name" class="form-input" placeholder="ex: Chemises Formelles 100% Coton Peigné" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+              <label class="form-label" for="prod-category">Secteur / Catégorie *</label>
+              <select id="prod-category" class="form-select" required>
+                <option value="textile">👔 Textile & Confection</option>
+                <option value="mobilier">🏠 Mobilier & Équipement</option>
+                <option value="sante">💊 Santé & Cosmétiques</option>
+                <option value="alimentaire">🍯 Agroalimentaire</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="prod-price">Prix Indicatif (€) *</label>
+              <input type="number" step="0.01" id="prod-price" class="form-input" placeholder="18.50" required>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+              <label class="form-label" for="prod-currency">Devise</label>
+              <select id="prod-currency" class="form-select">
+                <option value="EUR">EUR (€)</option>
+                <option value="USD">USD ($)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="prod-moq">MOQ (Qté Min.)</label>
+              <input type="number" id="prod-moq" class="form-input" value="50">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="prod-stock">Stock dispo</label>
+              <input type="number" id="prod-stock" class="form-input" value="1000">
+            </div>
+          </div>
+
+          <!-- IMAGE UPLOAD + URL COMBO -->
+          <div class="form-group">
+            <label class="form-label">Image du Produit *</label>
+            
+            <div style="display: flex; gap: 10px; margin-bottom: 8px;">
+              <input type="file" id="prod-file-upload" accept="image/*" class="form-input" style="padding: 6px;" onchange="handleProductImageUpload(this)">
+            </div>
+
+            <div style="position: relative;">
+              <input type="text" id="prod-image" class="form-input" placeholder="Ou collez une URL d'image (ex: https://images.unsplash.com/...)" required oninput="previewProductImage(this.value)">
+            </div>
+
+            <div style="margin-top: 10px;">
+              <img id="prod-image-preview" src="" alt="Aperçu image" style="max-height: 120px; border-radius: 8px; display: none; object-fit: cover; border: 1px solid var(--admin-border);">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="prod-desc">Description commerciale</label>
+            <textarea id="prod-desc" class="form-textarea" rows="3" placeholder="Présentation détaillée du produit pour les acheteurs B2B..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="prod-specs">Spécifications techniques (1 par ligne : "Label: Valeur")</label>
+            <textarea id="prod-specs" class="form-textarea" rows="3" placeholder="Matière: 100% Coton d'Égée&#10;Tailles: S à 3XL&#10;Norme: OEKO-TEX Standard 100"></textarea>
+          </div>
+
+          <div class="form-group" style="display: flex; align-items: center; gap: 10px;">
+            <input type="checkbox" id="prod-featured" style="width: 18px; height: 18px; cursor: pointer;">
+            <label for="prod-featured" style="font-size: 0.9rem; font-weight: 600; cursor: pointer;">Mettre en vedette sur la page d'accueil</label>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--admin-border);">
+            <button type="button" class="btn btn-outline btn-sm" onclick="closeProductFormModal()">Annuler</button>
+            <button type="submit" id="btn-save-product" class="btn btn-gold btn-sm">Enregistrer le Produit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- INQUIRY DETAIL MODAL -->
+  <div id="inquiry-detail-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Détails du Devis / Message</h3>
+        <button class="modal-close" onclick="closeInquiryDetailModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="inquiry-modal-body">
+        <!-- Injected dynamically via admin.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="/js/api.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

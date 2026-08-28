@@ -1,0 +1,102 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Admin {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String   @default("Administrateur")
+  role      String   @default("admin") // super_admin | admin
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  activityLogs ActivityLog[]
+
+  @@map("admins")
+}
+
+model Category {
+  id          Int       @id @default(autoincrement())
+  slug        String    @unique
+  name        String
+  icon        String    @default("📦")
+  description String?
+  orderIndex  Int       @default(0) @map("order_index")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  
+  products    Product[]
+  inquiries   Inquiry[]
+
+  @@map("categories")
+}
+
+model Product {
+  id           Int      @id @default(autoincrement())
+  name         String
+  categorySlug String   @map("category_slug")
+  description  String?
+  price        Float    @default(0)
+  currency     String   @default("EUR")
+  minOrderQty  Int      @default(1) @map("min_order_qty")
+  specsJson    String?  @default("[]") @map("specs_json")
+  imageUrl     String   @map("image_url")
+  stock        Int      @default(100)
+  isFeatured   Boolean  @default(false) @map("is_featured")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  category Category @relation(fields: [categorySlug], references: [slug], onDelete: Cascade)
+
+  @@index([categorySlug])
+  @@index([isFeatured])
+  @@map("products")
+}
+
+model Inquiry {
+  id           Int       @id @default(autoincrement())
+  name         String
+  email        String
+  phone        String?
+  company      String?
+  country      String?
+  subject      String
+  categorySlug String?   @map("category_slug")
+  message      String
+  status       String    @default("new") // new | in_progress | resolved | archived
+  notes        String?   // Internal admin notes
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+
+  category Category? @relation(fields: [categorySlug], references: [slug], onDelete: SetNull)
+
+  @@index([status])
+  @@index([createdAt])
+  @@map("inquiries")
+}
+
+model ActivityLog {
+  id        Int      @id @default(autoincrement())
+  adminId   Int?     @map("admin_id")
+  action    String
+  details   String?
+  ipAddress String?  @map("ip_address")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  admin Admin? @relation(fields: [adminId], references: [id], onDelete: SetNull)
+
+  @@map("activity_logs")
+}
+
+model Setting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("settings")
+}

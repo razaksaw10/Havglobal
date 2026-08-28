@@ -1,0 +1,29 @@
+{
+  "name": "havaglobal-trade",
+  "version": "3.0.0",
+  "description": "Plateforme B2B HAVA Global Trade - Architecture NestJS & Next.js",
+  "scripts": {
+    "dev": "concurrently -n \"BACKEND,FRONTEND\" -c \"blue,green\" \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run start:dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "cd backend && npm run build && cd ../frontend && npm run build",
+    "seed": "cd backend && npm run seed",
+    "test": "node test_api.js"
+  },
+  "keywords": [
+    "b2b",
+    "turkey-trade",
+    "export",
+    "nestjs",
+    "nextjs",
+    "react",
+    "typescript",
+    "prisma",
+    "sqlite"
+  ],
+  "author": "HAVA Global Trade",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
