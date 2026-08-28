@@ -1039,6 +1039,143 @@ img {
   box-shadow: 0 12px 30px rgba(37, 211, 102, 0.55);
 }
 
+/* Mobile Navigation Drawer */
+.mobile-toggle-btn {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-md);
+  padding: 8px 10px;
+  color: var(--navy-950);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.mobile-toggle-btn:hover {
+  background: var(--slate-100);
+  border-color: var(--navy-950);
+}
+
+.mobile-drawer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(7, 13, 24, 0.65);
+  backdrop-filter: blur(8px);
+  z-index: 1050;
+  display: flex;
+  justify-content: flex-end;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.mobile-drawer {
+  background: #ffffff;
+  width: 85%;
+  max-width: 360px;
+  height: 100%;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.25);
+  overflow-y: auto;
+  animation: slideLeft 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideLeft {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.mobile-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--slate-200);
+  margin-bottom: 20px;
+}
+
+.mobile-drawer-close {
+  background: var(--slate-100);
+  border: 1px solid var(--slate-200);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--slate-700);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.mobile-drawer-close:hover {
+  background: var(--slate-200);
+  color: var(--navy-950);
+}
+
+.mobile-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+
+.mobile-nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--navy-950);
+  transition: var(--transition);
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link.active {
+  background: var(--slate-100);
+  color: var(--gold-600);
+}
+
+.mobile-nav-link .arrow-icon {
+  color: var(--slate-400);
+  transition: var(--transition);
+}
+
+.mobile-nav-link:hover .arrow-icon {
+  transform: translateX(3px);
+  color: var(--gold-500);
+}
+
+.mobile-drawer-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid var(--slate-200);
+}
+
+.mobile-drawer-footer {
+  margin-top: 18px;
+  padding-top: 14px;
+  font-size: 0.78rem;
+  color: var(--slate-500);
+  line-height: 1.6;
+  text-align: center;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
   .categories-grid,
@@ -1053,9 +1190,55 @@ img {
   }
 }
 
+@media (max-width: 868px) {
+  .desktop-only {
+    display: none !important;
+  }
+  .mobile-toggle-btn {
+    display: flex;
+  }
+}
+
 @media (max-width: 768px) {
-  .nav-menu {
-    display: none;
+  .site-header {
+    height: 68px;
+  }
+  .nav-inner {
+    height: 68px;
+  }
+  .brand-logo img {
+    height: 40px;
+  }
+  .brand-name {
+    font-size: 1.15rem;
+  }
+  .brand-tag {
+    font-size: 0.62rem;
+  }
+  .hero-section {
+    padding: 100px 0 50px;
+  }
+  .hero-title {
+    font-size: clamp(1.85rem, 6.5vw, 2.6rem);
+    line-height: 1.2;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  .hero-lead {
+    font-size: 0.98rem;
+    line-height: 1.65;
+    margin-bottom: 24px;
+    max-width: 100%;
+  }
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+  .hero-buttons .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 20px;
   }
   .categories-grid,
   .products-grid,
@@ -1063,13 +1246,17 @@ img {
   .footer-grid {
     grid-template-columns: 1fr;
   }
-  .hero-title {
-    font-size: 2.2rem;
-  }
   .admin-container {
     flex-direction: column;
   }
   .admin-sidebar {
     width: 100%;
+  }
+  .whatsapp-float {
+    width: 52px;
+    height: 52px;
+    font-size: 1.5rem;
+    bottom: 20px;
+    right: 18px;
   }
 }
