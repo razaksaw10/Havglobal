@@ -16,8 +16,8 @@ function CatalogueContent() {
   const router = useRouter();
 
   const [categories, setCategories] = useState<Category[]>(FALLBACK_CATEGORIES);
-  const [products, setProducts] = useState<Product[]>(FALLBACK_PRODUCTS);
-  const [loading, setLoading] = useState(false);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const initialCategory = searchParams.get('category') || 'all';
   const [activeCategory, setActiveCategory] = useState(initialCategory);
@@ -45,12 +45,13 @@ function CatalogueContent() {
         }
       })
       .catch((err) => {
-        console.warn('Utilisation des catégories locales :', err.message);
+        console.warn('Erreur chargement catégories :', err.message);
       });
   }, []);
 
   // Fetch products when filters change
   useEffect(() => {
+    setLoading(true);
     api
       .getProducts({
         category: activeCategory === 'all' ? undefined : activeCategory,
@@ -59,50 +60,11 @@ function CatalogueContent() {
         limit: 50,
       })
       .then((res) => {
-        if (res.products && res.products.length > 0) {
-          setProducts(res.products);
-        } else if (activeCategory !== 'all' || searchTerm.trim()) {
-          // If filtering locally
-          let filtered = [...FALLBACK_PRODUCTS];
-          if (activeCategory !== 'all') {
-            filtered = filtered.filter((p) => p.categorySlug === activeCategory);
-          }
-          if (searchTerm.trim()) {
-            const q = searchTerm.toLowerCase();
-            filtered = filtered.filter(
-              (p) =>
-                p.name.toLowerCase().includes(q) ||
-                p.description.toLowerCase().includes(q),
-            );
-          }
-          if (sortBy === 'price_asc') {
-            filtered.sort((a, b) => a.price - b.price);
-          } else if (sortBy === 'price_desc') {
-            filtered.sort((a, b) => b.price - a.price);
-          }
-          setProducts(filtered);
-        }
+        setProducts(res.products || []);
       })
       .catch((err) => {
-        console.warn('Utilisation des produits de secours :', err.message);
-        let filtered = [...FALLBACK_PRODUCTS];
-        if (activeCategory !== 'all') {
-          filtered = filtered.filter((p) => p.categorySlug === activeCategory);
-        }
-        if (searchTerm.trim()) {
-          const q = searchTerm.toLowerCase();
-          filtered = filtered.filter(
-            (p) =>
-              p.name.toLowerCase().includes(q) ||
-              p.description.toLowerCase().includes(q),
-          );
-        }
-        if (sortBy === 'price_asc') {
-          filtered.sort((a, b) => a.price - b.price);
-        } else if (sortBy === 'price_desc') {
-          filtered.sort((a, b) => b.price - a.price);
-        }
-        setProducts(filtered);
+        console.warn('Erreur chargement catalogue :', err.message);
+        setProducts([]);
       })
       .finally(() => {
         setLoading(false);
@@ -229,10 +191,8 @@ function CatalogueContent() {
                 onChange={(e) => setSortBy(e.target.value)}
               >
                 <option value="default">Par défaut (Vedettes)</option>
-                <option value="price_asc">Prix : Croissant</option>
-                <option value="price_desc">Prix : Décroissant</option>
-                <option value="name_asc">Nom : A ➔ Z</option>
                 <option value="newest">Plus récents</option>
+                <option value="name_asc">Nom : A ➔ Z</option>
               </select>
             </div>
           </div>

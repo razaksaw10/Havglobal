@@ -4,6 +4,8 @@ import React from 'react';
 import { Product, SpecItem } from '../types';
 import { X, Send, CheckCircle, ShieldCheck, Box, Tag, Globe2 } from 'lucide-react';
 
+import { getProductImageUrl } from '../lib/api';
+
 interface ProductModalProps {
   product: Product | null;
   onClose: () => void;
@@ -32,14 +34,8 @@ export default function ProductModal({
     product.category?.name || product.category_name || product.categorySlug;
   const categoryIcon = product.category?.icon || product.category_icon || '📦';
   const minOrder = product.minOrderQty || product.min_order_qty || 1;
-  const imageUrl =
-    product.imageUrl ||
-    product.image_url ||
-    'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=800';
-
-  const finalImageUrl = imageUrl.startsWith('/uploads')
-    ? `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}${imageUrl}`
-    : imageUrl;
+  const rawImageUrl = product.imageUrl || product.image_url;
+  const finalImageUrl = getProductImageUrl(rawImageUrl);
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -96,12 +92,10 @@ export default function ProductModal({
             <div style={{ display: 'flex', gap: '20px', background: 'var(--slate-50)', padding: '14px 18px', borderRadius: 'var(--radius-md)', border: '1px solid var(--slate-200)', marginBottom: '20px' }}>
               <div>
                 <span style={{ display: 'block', fontSize: '0.75rem', color: 'var(--slate-400)', textTransform: 'uppercase' }}>
-                  Prix Indicatif
+                  Tarification B2B
                 </span>
-                <strong style={{ fontSize: '1.3rem', color: 'var(--navy-950)' }}>
-                  {product.price > 0
-                    ? `${product.price.toFixed(2)} ${product.currency || 'EUR'}`
-                    : 'Sur devis'}
+                <strong style={{ fontSize: '1.2rem', color: 'var(--gold-600)' }}>
+                  Sur Devis (FOB / CIF)
                 </strong>
               </div>
               <div style={{ borderLeft: '1px solid var(--slate-200)', paddingLeft: '20px' }}>

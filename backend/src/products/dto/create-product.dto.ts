@@ -25,11 +25,12 @@ export class CreateProductDto {
   @IsOptional()
   description?: string;
 
-  @ApiProperty({ example: 95.0 })
+  @ApiPropertyOptional({ example: 0, default: 0 })
   @Type(() => Number)
   @IsNumber({}, { message: 'Le prix doit être un nombre' })
   @Min(0)
-  price: number;
+  @IsOptional()
+  price?: number;
 
   @ApiPropertyOptional({ example: 'EUR', default: 'EUR' })
   @IsString()
@@ -50,10 +51,12 @@ export class CreateProductDto {
   @IsOptional()
   specsJson?: any;
 
-  @ApiProperty({ example: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=800' })
+  @ApiPropertyOptional({
+    example: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=800',
+  })
   @IsString()
-  @IsNotEmpty({ message: 'L’URL de l’image est requise' })
-  imageUrl: string;
+  @IsOptional()
+  imageUrl?: string;
 
   @ApiPropertyOptional({ example: 400, default: 100 })
   @Type(() => Number)

@@ -15,7 +15,7 @@ import {
   Image as ImageIcon,
 } from 'lucide-react';
 import AdminLayout from '../../../components/AdminLayout';
-import { api } from '../../../lib/api';
+import { api, getProductImageUrl } from '../../../lib/api';
 import { Category, Product, SpecItem } from '../../../types';
 
 export default function AdminProductsPage() {
@@ -158,9 +158,10 @@ export default function AdminProductsPage() {
 
     const payload = {
       ...formData,
-      price: Number(formData.price),
-      minOrderQty: Number(formData.minOrderQty),
-      stock: Number(formData.stock),
+      price: Number(formData.price) || 0,
+      minOrderQty: Number(formData.minOrderQty) || 1,
+      stock: Number(formData.stock) || 100,
+      imageUrl: formData.imageUrl.trim() || 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800',
       specsJson: JSON.stringify(validSpecs),
     };
 
@@ -301,10 +302,7 @@ export default function AdminProductsPage() {
             </thead>
             <tbody>
               {products.map((prod) => {
-                const img = prod.imageUrl || prod.image_url || '';
-                const finalImg = img.startsWith('/uploads')
-                  ? `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}${img}`
-                  : img;
+                const finalImg = getProductImageUrl(prod.imageUrl || prod.image_url);
 
                 return (
                   <tr key={prod.id}>
@@ -492,7 +490,7 @@ export default function AdminProductsPage() {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px' }}>
                 <div className="form-group">
                   <label className="form-label" style={{ color: '#cbd5e1' }}>
-                    Prix Unitaire (€)
+                    Prix (€ - Optionnel)
                   </label>
                   <input
                     type="number"

@@ -4,6 +4,8 @@ import React from 'react';
 import { Product } from '../types';
 import { Eye, Send, CheckCircle2 } from 'lucide-react';
 
+import { getProductImageUrl } from '../lib/api';
+
 interface ProductCardProps {
   product: Product;
   onViewDetails: (product: Product) => void;
@@ -20,15 +22,8 @@ export default function ProductCard({
   const categoryIcon = product.category?.icon || product.category_icon || '📦';
   const isFeatured = product.isFeatured || product.is_featured;
   const minOrder = product.minOrderQty || product.min_order_qty || 1;
-  const imageUrl =
-    product.imageUrl ||
-    product.image_url ||
-    'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=800';
-
-  // Parse image url if it starts with /uploads, point to API backend if needed
-  const finalImageUrl = imageUrl.startsWith('/uploads')
-    ? `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}${imageUrl}`
-    : imageUrl;
+  const rawImageUrl = product.imageUrl || product.image_url;
+  const finalImageUrl = getProductImageUrl(rawImageUrl);
 
   return (
     <div className="product-card">
@@ -62,11 +57,9 @@ export default function ProductCard({
 
         <div className="prod-meta">
           <div className="prod-price-box">
-            <span className="prod-price-label">Prix indicatif usine</span>
-            <span className="prod-price-val">
-              {product.price > 0
-                ? `${product.price.toFixed(2)} ${product.currency || 'EUR'}`
-                : 'Sur devis'}
+            <span className="prod-price-label">Tarification</span>
+            <span className="prod-price-val" style={{ color: 'var(--gold-500)', fontSize: '0.95rem', fontWeight: 600 }}>
+              Sur Devis B2B
             </span>
           </div>
           <div className="prod-moq">

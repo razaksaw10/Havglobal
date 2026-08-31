@@ -6,8 +6,18 @@ import {
   Product,
 } from '../types';
 
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+export const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL !== undefined
+    ? process.env.NEXT_PUBLIC_API_URL
+    : typeof window !== 'undefined'
+    ? ''
+    : 'http://localhost:3001';
+
+export function getProductImageUrl(imageUrl?: string): string {
+  if (!imageUrl) return 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80';
+  if (imageUrl.startsWith('http://') || imageUrl.startsWith('https://')) return imageUrl;
+  return `${API_BASE_URL}${imageUrl}`;
+}
 
 export function getAuthToken(): string | null {
   if (typeof window === 'undefined') return null;
@@ -426,64 +436,22 @@ export const api = {
 
   // Auth
   async login(email: string, password: string): Promise<{ token: string; admin: any }> {
-    try {
-      const res = await request<ApiResponse<{ token: string; admin: any }>>(
-        '/api/v1/auth/login',
-        {
-          method: 'POST',
-          body: JSON.stringify({ email, password }),
-        },
-      );
-      return res.data;
-    } catch (err: any) {
-      // Fallback local session if backend API is not yet reachable and credentials match admin
-      const validEmail = email.toLowerCase().trim();
-      if (
-        (validEmail === 'admin@havaglobaltrade.com' || validEmail === 'admin') &&
-        password === 'HavaAdmin2026!'
-      ) {
-        return {
-          token: 'hava-admin-local-session-2026',
-          admin: {
-            id: 1,
-            email: 'admin@havaglobaltrade.com',
-            name: 'Directeur HAVA Global',
-            role: 'super_admin',
-          },
-        };
-      }
-      throw err;
+    const res = await request<ApiResponse<{ token: string; admin: any }>>(
+      '/api/v1/auth/login',
+      {
+        method: 'POST',
+        body: JSON.stringify({ email: email.trim(), password }),
+      },
+    );
+    if (res.data?.token) {
+      setAuthToken(res.data.token);
     }
+    return res.data;
   },
 
   async getMe(): Promise<{ admin: any }> {
-    const token = getAuthToken();
-    if (token === 'hava-admin-local-session-2026') {
-      return {
-        admin: {
-          id: 1,
-          email: 'admin@havaglobaltrade.com',
-          name: 'Directeur HAVA Global',
-          role: 'super_admin',
-        },
-      };
-    }
-    try {
-      const res = await request<ApiResponse<{ admin: any }>>('/api/v1/auth/me');
-      return res.data;
-    } catch (err) {
-      if (token) {
-        return {
-          admin: {
-            id: 1,
-            email: 'admin@havaglobaltrade.com',
-            name: 'Directeur HAVA Global',
-            role: 'super_admin',
-          },
-        };
-      }
-      throw err;
-    }
+    const res = await request<ApiResponse<{ admin: any }>>('/api/v1/auth/me');
+    return res.data;
   },
 
   async changePassword(currentPassword: string, newPassword: string): Promise<{ message: string }> {

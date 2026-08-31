@@ -26,10 +26,8 @@ import QuoteModal from '../components/QuoteModal';
 import { FALLBACK_PRODUCTS } from '../lib/fallbackData';
 
 export default function HomePage() {
-  const [featuredProducts, setFeaturedProducts] = useState<Product[]>(
-    FALLBACK_PRODUCTS.filter((p) => p.isFeatured).slice(0, 4),
-  );
-  const [loadingProducts, setLoadingProducts] = useState(false);
+  const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
+  const [loadingProducts, setLoadingProducts] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [quoteModalOpen, setQuoteModalOpen] = useState(false);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
@@ -47,12 +45,11 @@ export default function HomePage() {
     api
       .getProducts({ featured: true, limit: 4 })
       .then((res) => {
-        if (res.products && res.products.length > 0) {
-          setFeaturedProducts(res.products);
-        }
+        setFeaturedProducts(res.products || []);
       })
       .catch((err) => {
-        console.warn('Produits vedettes locaux utilisés :', err.message);
+        console.warn('Erreur chargement produits vedettes :', err.message);
+        setFeaturedProducts([]);
       })
       .finally(() => {
         setLoadingProducts(false);

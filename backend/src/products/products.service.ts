@@ -139,7 +139,7 @@ export class ProductsService {
         currency: dto.currency || 'EUR',
         minOrderQty: Number(dto.minOrderQty) || 1,
         specsJson: specsJsonStr,
-        imageUrl: dto.imageUrl,
+        imageUrl: dto.imageUrl || 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800',
         stock: Number(dto.stock) || 100,
         isFeatured: Boolean(dto.isFeatured),
       },
