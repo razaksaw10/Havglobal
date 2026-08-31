@@ -303,6 +303,9 @@ img {
   margin-bottom: 20px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  max-width: 100%;
+  white-space: normal;
+  text-align: center;
 }
 
 .hero-badge .dot {
@@ -1184,6 +1187,7 @@ img {
   }
   .hero-grid {
     grid-template-columns: 1fr;
+    gap: 36px;
   }
   .footer-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1200,6 +1204,11 @@ img {
 }
 
 @media (max-width: 768px) {
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
   .site-header {
     height: 68px;
   }
@@ -1207,7 +1216,7 @@ img {
     height: 68px;
   }
   .brand-logo img {
-    height: 40px;
+    height: 38px;
   }
   .brand-name {
     font-size: 1.15rem;
@@ -1215,37 +1224,146 @@ img {
   .brand-tag {
     font-size: 0.62rem;
   }
+
+  /* Centered Hero on Mobile */
   .hero-section {
-    padding: 100px 0 50px;
+    padding: 85px 0 45px;
+    text-align: center;
   }
+
+  .hero-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+  }
+
+  .hero-badge {
+    font-size: 0.72rem;
+    padding: 5px 12px;
+    margin: 0 auto 16px;
+    line-height: 1.35;
+    letter-spacing: 0.02em;
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+  }
+
   .hero-title {
-    font-size: clamp(1.85rem, 6.5vw, 2.6rem);
-    line-height: 1.2;
+    font-size: clamp(1.75rem, 6.2vw, 2.3rem);
+    line-height: 1.22;
+    text-align: center;
     word-break: break-word;
     overflow-wrap: break-word;
+    margin-bottom: 16px;
   }
+
   .hero-lead {
-    font-size: 0.98rem;
-    line-height: 1.65;
-    margin-bottom: 24px;
+    font-size: 0.94rem;
+    line-height: 1.6;
+    margin: 0 auto 24px;
+    text-align: center;
     max-width: 100%;
   }
+
   .hero-buttons {
+    display: flex;
     flex-direction: column;
     width: 100%;
+    max-width: 360px;
+    margin: 0 auto 30px;
     gap: 12px;
   }
+
   .hero-buttons .btn {
     width: 100%;
     justify-content: center;
-    padding: 14px 20px;
+    padding: 13px 20px;
+    font-size: 0.95rem;
   }
+
+  .hero-stats {
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px 12px;
+    padding-top: 20px;
+    border-top: 1px solid var(--slate-200);
+  }
+
+  .stat-item {
+    align-items: center;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-size: 1.7rem;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+  }
+
+  .hero-visual {
+    margin-top: 24px;
+    width: 100%;
+  }
+
+  .hero-floating-card {
+    position: static;
+    margin: 16px auto 0;
+    width: 100%;
+    max-width: 100%;
+    box-shadow: var(--shadow-md);
+    justify-content: center;
+    text-align: left;
+  }
+
+  /* General section polish for mobile */
+  .section {
+    padding: 55px 0;
+  }
+
+  .section-header {
+    margin-bottom: 32px;
+    text-align: center;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+    text-align: center;
+  }
+
+  .section-subtitle {
+    font-size: 0.92rem;
+    text-align: center;
+  }
+
   .categories-grid,
   .products-grid,
   .kpi-grid,
   .footer-grid {
     grid-template-columns: 1fr;
+    gap: 18px;
   }
+
+  .category-card {
+    align-items: center;
+    text-align: center;
+    padding: 24px 20px;
+  }
+
+  .cat-desc {
+    text-align: center;
+  }
+
+  .cat-link {
+    justify-content: center;
+  }
+
   .admin-container {
     flex-direction: column;
   }
@@ -1253,10 +1371,10 @@ img {
     width: 100%;
   }
   .whatsapp-float {
-    width: 52px;
-    height: 52px;
-    font-size: 1.5rem;
-    bottom: 20px;
-    right: 18px;
+    width: 50px;
+    height: 50px;
+    font-size: 1.4rem;
+    bottom: 18px;
+    right: 16px;
   }
 }

@@ -18,13 +18,13 @@ async function main() {
     where: { email: adminEmail },
     update: {
       password: hashedPassword,
-      name: 'Directeur HAVA Global',
+      name: 'Razak',
       role: 'super_admin'
     },
     create: {
       email: adminEmail,
       password: hashedPassword,
-      name: 'Directeur HAVA Global',
+      name: 'Razak',
       role: 'super_admin'
     }
   });

@@ -78,7 +78,7 @@ export default function HomePage() {
   const faqs = [
     {
       q: 'Quels sont les délais moyens de production et d’expédition depuis la Turquie ?',
-      a: 'Selon les secteurs (textile, mobilier, cosmétique ou alimentaire), les délais de fabrication varient de 2 à 4 semaines. L’acheminement maritime vers l’Europe prend généralement 4 à 7 jours, et 15 à 25 jours vers l’Afrique ou les Amériques.',
+      a: 'Selon les secteurs (textile, mobilier, cosmétique ou alimentaire), les délais de fabrication varient de 2 à 4 semaines. L’acheminement maritime vers les pays africains prend généralement 15 à 25 jours.',
     },
     {
       q: 'Comment s’effectue le contrôle de conformité et de qualité des marchandises ?',
@@ -161,7 +161,7 @@ export default function HomePage() {
                 <div className="floating-icon">🌍</div>
                 <div className="floating-text">
                   <h4>Hub Logistique Global</h4>
-                  <p>Turquie ➔ Afrique · Europe · Moyen-Orient · Amériques</p>
+                  <p>Turquie ➔ Afrique</p>
                 </div>
               </div>
             </div>
