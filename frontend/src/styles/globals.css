@@ -571,20 +571,25 @@ img {
 
 .prod-img-box {
   position: relative;
-  height: 220px;
-  background: var(--slate-100);
+  height: 260px;
+  background: #f8fafc;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--slate-100);
 }
 
 .prod-img-box img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
+  object-fit: contain;
+  padding: 8px;
+  transition: transform 0.3s ease;
 }
 
 .product-card:hover .prod-img-box img {
-  transform: scale(1.06);
+  transform: scale(1.03);
 }
 
 .prod-badge {

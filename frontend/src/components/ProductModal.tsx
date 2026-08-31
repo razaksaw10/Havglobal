@@ -55,14 +55,17 @@ export default function ProductModal({
                 borderRadius: 'var(--radius-md)',
                 overflow: 'hidden',
                 border: '1px solid var(--slate-200)',
-                height: '280px',
-                background: 'var(--slate-100)',
+                height: '320px',
+                background: '#f8fafc',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
               <img
                 src={finalImageUrl}
                 alt={product.name}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                style={{ width: '100%', height: '100%', objectFit: 'contain', padding: '10px' }}
               />
             </div>
             <div style={{ marginTop: '16px', background: 'var(--slate-50)', padding: '14px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--slate-200)' }}>
