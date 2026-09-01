@@ -1,5 +1,5 @@
 datasource db {
-  provider = "sqlite"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -26,7 +26,7 @@ model Category {
   slug        String    @unique
   name        String
   icon        String    @default("📦")
-  description String?
+  description String?   @db.Text
   orderIndex  Int       @default(0) @map("order_index")
   createdAt   DateTime  @default(now()) @map("created_at")
   
@@ -40,12 +40,12 @@ model Product {
   id           Int      @id @default(autoincrement())
   name         String
   categorySlug String   @map("category_slug")
-  description  String?
+  description  String?  @db.Text
   price        Float    @default(0)
   currency     String   @default("EUR")
   minOrderQty  Int      @default(1) @map("min_order_qty")
-  specsJson    String?  @default("[]") @map("specs_json")
-  imageUrl     String   @map("image_url")
+  specsJson    String?  @default("[]") @map("specs_json") @db.Text
+  imageUrl     String   @map("image_url") @db.Text
   stock        Int      @default(100)
   isFeatured   Boolean  @default(false) @map("is_featured")
   createdAt    DateTime @default(now()) @map("created_at")
@@ -67,9 +67,9 @@ model Inquiry {
   country      String?
   subject      String
   categorySlug String?   @map("category_slug")
-  message      String
+  message      String    @db.Text
   status       String    @default("new") // new | in_progress | resolved | archived
-  notes        String?   // Internal admin notes
+  notes        String?   @db.Text // Internal admin notes
   createdAt    DateTime  @default(now()) @map("created_at")
   updatedAt    DateTime  @updatedAt @map("updated_at")
 
@@ -84,7 +84,7 @@ model ActivityLog {
   id        Int      @id @default(autoincrement())
   adminId   Int?     @map("admin_id")
   action    String
-  details   String?
+  details   String?  @db.Text
   ipAddress String?  @map("ip_address")
   createdAt DateTime @default(now()) @map("created_at")
 
@@ -95,7 +95,7 @@ model ActivityLog {
 
 model Setting {
   key       String   @id
-  value     String
+  value     String   @db.Text
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("settings")
