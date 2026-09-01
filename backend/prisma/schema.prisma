@@ -44,7 +44,7 @@ model Product {
   price        Float    @default(0)
   currency     String   @default("EUR")
   minOrderQty  Int      @default(1) @map("min_order_qty")
-  specsJson    String?  @default("[]") @map("specs_json") @db.Text
+  specsJson    String?  @map("specs_json") @db.Text
   imageUrl     String   @map("image_url") @db.Text
   stock        Int      @default(100)
   isFeatured   Boolean  @default(false) @map("is_featured")
