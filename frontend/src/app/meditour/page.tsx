@@ -338,8 +338,8 @@ export default function MediTourPage() {
                 }}
               >
                 <img
-                  src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=1200&q=90&fit=crop"
-                  alt="Équipe médicale de spécialistes et chirurgiens Turquie"
+                  src="/meditour-hero.jpg"
+                  alt="Équipe médicale de chirurgiens et spécialistes en salle d'opération en Turquie"
                   style={{
                     width: '100%',
                     height: '100%',

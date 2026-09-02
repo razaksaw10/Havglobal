@@ -301,8 +301,8 @@ export default function TourismePage() {
                 }}
               >
                 <img
-                  src="https://images.unsplash.com/photo-1527838832700-5059252407fa?w=1200&q=90&fit=crop"
-                  alt="Vue emblématique d'Istanbul, Mosquée Bleue, Sainte-Sophie et Bosphore en Turquie"
+                  src="/tourisme-hero.jpg"
+                  alt="Vue aérienne panoramique d'Istanbul et du pont du Bosphore en Turquie"
                   style={{
                     width: '100%',
                     height: '100%',
