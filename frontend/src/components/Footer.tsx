@@ -21,7 +21,7 @@ export default function Footer() {
           <div className="footer-col">
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
               <img
-                src="/file/HAVA GLOBAL TRADİNG.png"
+                src="/logo.png"
                 alt="HAVA Global Trade"
                 style={{ height: '42px', filter: 'brightness(1.2)' }}
               />

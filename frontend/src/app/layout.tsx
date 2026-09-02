@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     'agroalimentaire turc',
   ],
   icons: {
-    icon: '/file/HAVA GLOBAL TRADİNG.png',
+    icon: '/logo.png',
   },
 };
 
@@ -36,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <head>
-        <link rel="icon" href="/file/HAVA GLOBAL TRADİNG.png" />
+        <link rel="icon" href="/logo.png" />
       </head>
       <body>
         <Navbar />

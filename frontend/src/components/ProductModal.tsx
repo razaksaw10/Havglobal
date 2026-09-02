@@ -48,7 +48,7 @@ export default function ProductModal({
           <X size={20} />
         </button>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '28px', marginTop: '10px' }}>
+        <div className="product-modal-grid">
           <div>
             <div
               style={{

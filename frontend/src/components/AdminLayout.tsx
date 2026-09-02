@@ -98,7 +98,7 @@ export default function AdminLayout({
       {/* SIDEBAR */}
       <aside className="admin-sidebar">
         <div className="admin-brand">
-          <img src="/file/HAVA GLOBAL TRADİNG.png" alt="HAVA Admin" />
+          <img src="/logo.png" alt="HAVA Admin" />
           <div>
             <strong
               style={{

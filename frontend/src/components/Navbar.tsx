@@ -54,7 +54,7 @@ export default function Navbar({ onOpenQuote }: { onOpenQuote?: () => void }) {
             {/* BRAND LOGO */}
             <Link href="/" className="brand-logo" onClick={() => setMobileMenuOpen(false)}>
               <img
-                src="/file/HAVA GLOBAL TRADİNG.png"
+                src="/logo.png"
                 alt="HAVA Global Trade"
               />
               <div className="brand-info">
@@ -176,7 +176,7 @@ export default function Navbar({ onOpenQuote }: { onOpenQuote?: () => void }) {
 
             <div className="mobile-drawer-footer">
               <div>📍 Istanbul, Turquie · Export Mondial</div>
-              <div>📞 Service Commercial : +90 534 839 21 00</div>
+              <div>📞 Service Commercial : +90 543 173 61 73</div>
             </div>
           </div>
         </div>

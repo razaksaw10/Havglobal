@@ -800,6 +800,64 @@ img {
   min-height: 110px;
 }
 
+/* Dark Containers & Forms (Medi-Tour, Tourisme, Admin, etc.) */
+#demande-devis .form-label,
+#reserver-visite .form-label,
+.admin-container .form-label {
+  color: #cbd5e1;
+}
+
+#demande-devis .form-input,
+#demande-devis .form-select,
+#demande-devis .form-textarea,
+#reserver-visite .form-input,
+#reserver-visite .form-select,
+#reserver-visite .form-textarea,
+.admin-container .form-input,
+.admin-container .form-select,
+.admin-container .form-textarea {
+  background: #0f172a;
+  border-color: #1e293b;
+  color: #f8fafc;
+}
+
+#demande-devis .form-input::placeholder,
+#demande-devis .form-textarea::placeholder,
+#reserver-visite .form-input::placeholder,
+#reserver-visite .form-textarea::placeholder,
+.admin-container .form-input::placeholder,
+.admin-container .form-textarea::placeholder {
+  color: #64748b;
+}
+
+#demande-devis .form-input:focus,
+#demande-devis .form-select:focus,
+#demande-devis .form-textarea:focus,
+#reserver-visite .form-input:focus,
+#reserver-visite .form-select:focus,
+#reserver-visite .form-textarea:focus,
+.admin-container .form-input:focus,
+.admin-container .form-select:focus,
+.admin-container .form-textarea:focus {
+  border-color: var(--gold-400);
+  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.25);
+}
+
+/* Responsive Modal Grid */
+.product-modal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 28px;
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .product-modal-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
+
 /* Admin Styling */
 .admin-container {
   display: flex;
