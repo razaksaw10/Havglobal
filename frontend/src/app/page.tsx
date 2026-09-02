@@ -234,8 +234,14 @@ export default function HomePage() {
               }}
             >
               <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '18px' }}>
-                  <span style={{ fontSize: '2.4rem' }}>🩺</span>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
+                  <div style={{ background: '#fff', padding: '6px 12px', borderRadius: '10px' }}>
+                    <img
+                      src="/meditour-logo.png"
+                      alt="MEDI-TOUR ASSISTANCE"
+                      style={{ height: '36px', width: 'auto', objectFit: 'contain' }}
+                    />
+                  </div>
                   <span style={{ background: 'rgba(14, 165, 233, 0.15)', color: '#38bdf8', padding: '4px 10px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 700 }}>
                     SANTÉ & ÉVACUATION
                   </span>

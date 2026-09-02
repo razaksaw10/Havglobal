@@ -40,10 +40,10 @@ export default function Navbar({ onOpenQuote }: { onOpenQuote?: () => void }) {
   const navLinks = [
     { href: '/', label: 'Accueil' },
     { href: '/catalogue', label: 'Catalogue B2B' },
-    { href: '/meditour', label: 'Medi-Tour (Santé)' },
-    { href: '/tourisme', label: 'Visites & Tourisme' },
-    { href: '/services', label: 'Services Sourcing' },
-    { href: '/contact', label: 'Contact & Devis' },
+    { href: '/meditour', label: 'Medi-Tour', badge: 'Santé' },
+    { href: '/tourisme', label: 'Visites & Séjours' },
+    { href: '/services', label: 'Services' },
+    { href: '/contact', label: 'Contact' },
   ];
 
   return (
@@ -71,7 +71,10 @@ export default function Navbar({ onOpenQuote }: { onOpenQuote?: () => void }) {
                   href={item.href}
                   className={`nav-link ${pathname === item.href ? 'active' : ''}`}
                 >
-                  {item.label}
+                  <span>{item.label}</span>
+                  {item.badge && (
+                    <span className="nav-link-badge">{item.badge}</span>
+                  )}
                 </Link>
               ))}
             </nav>

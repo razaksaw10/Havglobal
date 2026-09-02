@@ -193,6 +193,27 @@ export default function MediTourPage() {
       >
         <div className="container">
           <div style={{ maxWidth: '880px', margin: '0 auto', textAlign: 'center' }}>
+            {/* OFFICIAL MEDI-TOUR LOGO EMBLEM */}
+            <div style={{ marginBottom: '22px', display: 'flex', justifyContent: 'center' }}>
+              <div
+                style={{
+                  background: '#ffffff',
+                  padding: '10px 22px',
+                  borderRadius: '16px',
+                  boxShadow: '0 8px 30px rgba(14, 165, 233, 0.25)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                }}
+              >
+                <img
+                  src="/meditour-logo.png"
+                  alt="MEDI-TOUR ASSISTANCE"
+                  style={{ height: '52px', width: 'auto', objectFit: 'contain' }}
+                />
+              </div>
+            </div>
+
             <div
               style={{
                 display: 'inline-flex',
