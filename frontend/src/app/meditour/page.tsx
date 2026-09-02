@@ -186,8 +186,9 @@ export default function MediTourPage() {
       <section
         style={{
           position: 'relative',
-          padding: '60px 0 80px',
-          background: 'radial-gradient(circle at 50% 10%, rgba(14, 165, 233, 0.15), transparent 70%), #0a0f1d',
+          padding: '80px 0 100px',
+          background:
+            "linear-gradient(180deg, rgba(10, 15, 29, 0.84) 0%, rgba(10, 15, 29, 0.95) 100%), url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=1920&q=85&fit=crop') center 25% / cover no-repeat",
           borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
         }}
       >

@@ -167,8 +167,9 @@ export default function TourismePage() {
       <section
         style={{
           position: 'relative',
-          padding: '60px 0 80px',
-          background: 'radial-gradient(circle at 50% 15%, rgba(217, 119, 6, 0.15), transparent 70%), #0a0f1d',
+          padding: '80px 0 100px',
+          background:
+            "linear-gradient(180deg, rgba(10, 15, 29, 0.78) 0%, rgba(10, 15, 29, 0.94) 100%), url('https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=1920&q=85&fit=crop') center 35% / cover no-repeat",
           borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
         }}
       >
