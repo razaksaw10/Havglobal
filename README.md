@@ -128,8 +128,8 @@ cd Havglobal
    ```env
    PORT=3001
    NODE_ENV=development
-   DATABASE_URL="mysql://havaglobal_user:HavaAdmin2026@localhost:3306/havaglobal"
-   JWT_SECRET="votre_super_cle_secrete_jwt_2026"
+   DATABASE_URL="mysql://DB_USER:DB_PASSWORD@localhost:3306/DB_NAME"
+   JWT_SECRET="votre_cle_secrete_jwt"
    JWT_EXPIRES_IN="7d"
    FRONTEND_URL="http://localhost:3000"
    ```
@@ -185,7 +185,6 @@ git pull origin main
 # 2. Mettre à jour la base de données (si modification de schéma)
 cd backend
 npx prisma db push
-npm run seed # optionnel si déjà initialisé
 
 # 3. Compiler le Frontend Next.js
 cd ../frontend
@@ -230,9 +229,7 @@ module.exports = {
 ## 🔒 Espace Administrateur
 
 - **URL d'accès** : `/admin/login`
-- **Identifiants par défaut** :
-  - **Email** : `admin@havaglobal.com`
-  - **Mot de passe** : `AdminHava2026!`
+- **Authentification** : Gestion des accès par jetons JWT sécurisés et mots de passe hachés avec Bcrypt (configurés via l'environnement et l'initialisation de la base).
 - **Fonctionnalités Admin** :
   - 📊 Tableau de bord KPIs (nombre de produits, demandes de devis, secteurs actifs).
   - 📦 Gestion complète des produits (création, modification, upload d'images, statut vedette).
@@ -245,9 +242,8 @@ module.exports = {
 
 - 📍 **Turquie (Siège Opérationnel & Médical)** : Istanbul & Bolu, Turquie
 - 📍 **Burkina Faso (Siège Administratif Afrique)** : Ouagadougou, Burkina Faso
-- 📞 **Service Commercial B2B & Tourisme** : `+90 543 173 61 73`
-- 🩺 **MEDI-TOUR ASSISTANCE (Urgences & Santé)** : `+90 541 882 95 49` / `+90 541 886 24 45`
-- ✉️ **Email central** : `havaglobaltrade@gmail.com`
+- 🌐 **Site Web Officiel & Formulaire de Devis** : Accessible en ligne via la plateforme
+- ✉️ **Contact Administratif & Support** : Via le portale officiel de contact
 
 ---
 
