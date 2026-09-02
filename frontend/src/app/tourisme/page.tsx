@@ -83,7 +83,7 @@ export default function TourismePage() {
       badge: 'Mode & Confection · Shopping VIP',
       title: 'Pack Shopping & Sourcing Grossistes',
       icon: '🛍️',
-      image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1578916171728-46686eac8d58?w=800&q=80',
       desc: 'Circuit sur-mesure dans les hauts lieux de la confection et du commerce de gros d’Istanbul pour faire le plein de stock au meilleur tarif d’usine.',
       highlights: [
         'Circuits guidés dans les zones grossistes (Merter, Laleli, Osmanbey)',
@@ -99,7 +99,7 @@ export default function TourismePage() {
       badge: 'Émerveillement · Nature & Découverte',
       title: 'Pack Cappadoce Féerique & Régions',
       icon: '🎈',
-      image: 'https://images.unsplash.com/photo-1609825488888-3a766db05542?w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1570939274717-7eda259b50ed?w=800&q=80',
       desc: 'Vivez l’expérience magique des cheminées de fées, vol en montgolfière au lever du soleil et découverte des merveilles de l’Anatolie (Bursa, Pamukkale, Antalya).',
       highlights: [
         'Vol en montgolfière inoubliable au-dessus des vallées de Cappadoce',
@@ -301,8 +301,8 @@ export default function TourismePage() {
                 }}
               >
                 <img
-                  src="https://images.unsplash.com/photo-1609825488888-3a766db05542?w=1200&q=90&fit=crop"
-                  alt="Montgolfières au lever du soleil en Cappadoce et merveilles de Turquie"
+                  src="https://images.unsplash.com/photo-1527838832700-5059252407fa?w=1200&q=90&fit=crop"
+                  alt="Vue emblématique d'Istanbul, Mosquée Bleue, Sainte-Sophie et Bosphore en Turquie"
                   style={{
                     width: '100%',
                     height: '100%',
