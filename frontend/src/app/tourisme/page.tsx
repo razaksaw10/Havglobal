@@ -167,91 +167,218 @@ export default function TourismePage() {
       <section
         style={{
           position: 'relative',
-          padding: '80px 0 100px',
-          background:
-            "linear-gradient(180deg, rgba(10, 15, 29, 0.78) 0%, rgba(10, 15, 29, 0.94) 100%), url('https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=1920&q=85&fit=crop') center 35% / cover no-repeat",
+          padding: '60px 0 70px',
+          background: 'radial-gradient(circle at 75% 20%, rgba(217, 119, 6, 0.12) 0%, transparent 60%), #0a0f1d',
           borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
         }}
       >
         <div className="container">
-          <div style={{ maxWidth: '880px', margin: '0 auto', textAlign: 'center' }}>
-            <div
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                background: 'rgba(217, 119, 6, 0.12)',
-                border: '1px solid rgba(217, 119, 6, 0.35)',
-                color: 'var(--gold-400)',
-                padding: '6px 16px',
-                borderRadius: '999px',
-                fontSize: '0.85rem',
-                fontWeight: 600,
-                marginBottom: '20px',
-              }}
-            >
-              <Compass size={16} /> HAVA Travel & Tourisme · Visites Guidées en Turquie
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+              gap: '40px',
+              alignItems: 'center',
+            }}
+          >
+            {/* Left: Content */}
+            <div>
+              <div
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  background: 'rgba(217, 119, 6, 0.12)',
+                  border: '1px solid rgba(217, 119, 6, 0.35)',
+                  color: 'var(--gold-400)',
+                  padding: '6px 16px',
+                  borderRadius: '999px',
+                  fontSize: '0.82rem',
+                  fontWeight: 600,
+                  marginBottom: '20px',
+                }}
+              >
+                <Compass size={16} /> HAVA Travel & Tourisme · Visites Guidées en Turquie
+              </div>
+
+              <h1
+                style={{
+                  fontSize: 'clamp(2rem, 3.8vw, 3.1rem)',
+                  fontFamily: 'var(--font-serif)',
+                  color: '#ffffff',
+                  lineHeight: '1.2',
+                  marginBottom: '18px',
+                }}
+              >
+                Vivez la Turquie Autrement :{' '}
+                <span
+                  style={{
+                    background: 'linear-gradient(135deg, var(--gold-400) 0%, #fbbf24 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                  }}
+                >
+                  Visites Guidées, Salons B2B & Séjours VIP
+                </span>
+              </h1>
+
+              <p
+                style={{
+                  fontSize: '1.05rem',
+                  color: '#94a3b8',
+                  lineHeight: '1.7',
+                  marginBottom: '30px',
+                }}
+              >
+                Développez vos affaires, visitez les manufactures partenaires, explorez les hauts lieux du shopping grossiste d’Istanbul ou vivez des vacances inoubliables en Cappadoce avec un guide francophone dédié et chauffeur privé.
+              </p>
+
+              <div
+                style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '14px',
+                  alignItems: 'center',
+                  marginBottom: '36px',
+                }}
+              >
+                <a href="#reserver-visite" className="btn btn-gold" style={{ padding: '13px 26px', fontSize: '0.98rem' }}>
+                  <Calendar size={18} /> Réserver une Visite / Séjour
+                </a>
+                <a
+                  href="https://wa.me/905431736173?text=Bonjour,%20je%20souhaite%20des%20informations%20sur%20les%20visites%20guidées%20et%20séjours%20en%20Turquie"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-outline"
+                  style={{
+                    padding: '13px 22px',
+                    fontSize: '0.98rem',
+                    borderColor: '#22c55e',
+                    color: '#4ade80',
+                    background: 'rgba(34, 197, 94, 0.08)',
+                  }}
+                >
+                  <MessageCircle size={18} /> WhatsApp Tourisme (+90 543 173 61 73)
+                </a>
+              </div>
+
+              {/* QUICK KEY STATS */}
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(3, 1fr)',
+                  gap: '12px',
+                  paddingTop: '20px',
+                  borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+                }}
+              >
+                <div>
+                  <div style={{ color: 'var(--gold-400)', fontSize: '1.3rem', fontWeight: 800 }}>VIP</div>
+                  <div style={{ fontSize: '0.78rem', color: '#94a3b8' }}>Vans Mercedes privés</div>
+                </div>
+                <div>
+                  <div style={{ color: 'var(--gold-400)', fontSize: '1.3rem', fontWeight: 800 }}>100%</div>
+                  <div style={{ fontSize: '0.78rem', color: '#94a3b8' }}>Guides francophones</div>
+                </div>
+                <div>
+                  <div style={{ color: 'var(--gold-400)', fontSize: '1.3rem', fontWeight: 800 }}>4* & 5*</div>
+                  <div style={{ fontSize: '0.78rem', color: '#94a3b8' }}>Hôtels d&apos;exception</div>
+                </div>
+              </div>
             </div>
 
-            <h1
-              style={{
-                fontSize: 'clamp(2.1rem, 4.5vw, 3.4rem)',
-                fontFamily: 'var(--font-serif)',
-                color: '#ffffff',
-                lineHeight: '1.2',
-                marginBottom: '22px',
-              }}
-            >
-              Vivez la Turquie Autrement :{' '}
-              <span
+            {/* Right: Crisp, Vibrant Turkey Image Showcase */}
+            <div style={{ position: 'relative' }}>
+              <div
                 style={{
-                  background: 'linear-gradient(135deg, var(--gold-400) 0%, #fbbf24 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
+                  borderRadius: '20px',
+                  overflow: 'hidden',
+                  border: '1px solid rgba(217, 119, 6, 0.35)',
+                  boxShadow: '0 20px 50px rgba(0, 0, 0, 0.6)',
+                  position: 'relative',
+                  height: '460px',
+                  background: '#0d1527',
                 }}
               >
-                Visites Guidées, Salons B2B & Séjours VIP
-              </span>
-            </h1>
+                <img
+                  src="https://images.unsplash.com/photo-1609825488888-3a766db05542?w=1200&q=90&fit=crop"
+                  alt="Montgolfières au lever du soleil en Cappadoce et merveilles de Turquie"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    display: 'block',
+                  }}
+                />
+                <div
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: 'linear-gradient(180deg, transparent 60%, rgba(10, 15, 29, 0.85) 100%)',
+                  }}
+                />
+              </div>
 
-            <p
-              style={{
-                fontSize: '1.1rem',
-                color: '#94a3b8',
-                lineHeight: '1.7',
-                marginBottom: '36px',
-              }}
-            >
-              Que vous veniez à Istanbul pour développer vos affaires, visiter les usines partenaires, explorer les quartiers grossistes ou passer des vacances inoubliables en famille, notre agence s’occupe de toute votre logistique avec un guide francophone dédié.
-            </p>
-
-            <div
-              style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: '16px',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <a href="#reserver-visite" className="btn btn-gold" style={{ padding: '14px 28px', fontSize: '1rem' }}>
-                <Calendar size={18} /> Réserver une Visite / Séjour
-              </a>
-              <a
-                href="https://wa.me/905431736173?text=Bonjour,%20je%20souhaite%20des%20informations%20sur%20les%20visites%20guidées%20et%20séjours%20en%20Turquie"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-outline"
+              {/* Floating Top Badge */}
+              <div
                 style={{
-                  padding: '14px 24px',
-                  fontSize: '1rem',
-                  borderColor: '#22c55e',
-                  color: '#4ade80',
-                  background: 'rgba(34, 197, 94, 0.08)',
+                  position: 'absolute',
+                  top: '18px',
+                  left: '18px',
+                  background: 'rgba(10, 15, 29, 0.9)',
+                  backdropFilter: 'blur(8px)',
+                  border: '1px solid rgba(217, 119, 6, 0.4)',
+                  padding: '8px 14px',
+                  borderRadius: '10px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  color: 'var(--gold-400)',
+                  fontSize: '0.82rem',
+                  fontWeight: 600,
+                  boxShadow: '0 8px 20px rgba(0,0,0,0.4)',
                 }}
               >
-                <MessageCircle size={18} /> WhatsApp Tourisme (+90 543 173 61 73)
-              </a>
+                <Sparkles size={16} /> Istanbul · Cappadoce · Bursa · Antalya
+              </div>
+
+              {/* Floating Bottom Card */}
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: '-16px',
+                  right: '18px',
+                  left: '18px',
+                  background: '#111a2e',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  padding: '14px 18px',
+                  borderRadius: '12px',
+                  boxShadow: '0 12px 30px rgba(0,0,0,0.5)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                }}
+              >
+                <div
+                  style={{
+                    background: 'var(--gold-500)',
+                    color: '#fff',
+                    padding: '10px',
+                    borderRadius: '10px',
+                    flexShrink: 0,
+                  }}
+                >
+                  <Car size={22} />
+                </div>
+                <div>
+                  <strong style={{ color: '#fff', fontSize: '0.9rem', display: 'block' }}>
+                    Chauffeur Privé & Guide Dédié
+                  </strong>
+                  <span style={{ color: '#94a3b8', fontSize: '0.78rem' }}>
+                    Prise en charge complète aéroport, visites d&apos;usines & shopping VIP
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

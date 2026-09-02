@@ -186,178 +186,235 @@ export default function MediTourPage() {
       <section
         style={{
           position: 'relative',
-          padding: '80px 0 100px',
-          background:
-            "linear-gradient(180deg, rgba(10, 15, 29, 0.84) 0%, rgba(10, 15, 29, 0.95) 100%), url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=1920&q=85&fit=crop') center 25% / cover no-repeat",
+          padding: '60px 0 70px',
+          background: 'radial-gradient(circle at 75% 20%, rgba(14, 165, 233, 0.12) 0%, transparent 60%), #0a0f1d',
           borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
         }}
       >
         <div className="container">
-          <div style={{ maxWidth: '880px', margin: '0 auto', textAlign: 'center' }}>
-            {/* OFFICIAL MEDI-TOUR LOGO EMBLEM */}
-            <div style={{ marginBottom: '22px', display: 'flex', justifyContent: 'center' }}>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+              gap: '40px',
+              alignItems: 'center',
+            }}
+          >
+            {/* Left: Content */}
+            <div>
+              {/* Official Medi-Tour Logo Badge */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '20px' }}>
+                <div
+                  style={{
+                    background: '#ffffff',
+                    padding: '8px 16px',
+                    borderRadius: '12px',
+                    boxShadow: '0 6px 20px rgba(14, 165, 233, 0.2)',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                  }}
+                >
+                  <img
+                    src="/meditour-logo.png"
+                    alt="MEDI-TOUR ASSISTANCE"
+                    style={{ height: '42px', width: 'auto', objectFit: 'contain' }}
+                  />
+                </div>
+                <div
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    background: 'rgba(14, 165, 233, 0.12)',
+                    border: '1px solid rgba(14, 165, 233, 0.35)',
+                    color: '#38bdf8',
+                    padding: '6px 14px',
+                    borderRadius: '999px',
+                    fontSize: '0.8rem',
+                    fontWeight: 600,
+                  }}
+                >
+                  <HeartPulse size={15} /> Santé & Évacuation Sanitaire
+                </div>
+              </div>
+
+              <h1
+                style={{
+                  fontSize: 'clamp(2rem, 3.8vw, 3.1rem)',
+                  fontFamily: 'var(--font-serif)',
+                  color: '#ffffff',
+                  lineHeight: '1.2',
+                  marginBottom: '18px',
+                }}
+              >
+                Le Pont Médical d’Excellence entre{' '}
+                <span
+                  style={{
+                    background: 'linear-gradient(135deg, #38bdf8 0%, #818cf8 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                  }}
+                >
+                  l’Afrique de l’Ouest et la Turquie
+                </span>
+              </h1>
+
+              <p
+                style={{
+                  fontSize: '1.05rem',
+                  color: '#94a3b8',
+                  lineHeight: '1.7',
+                  marginBottom: '30px',
+                }}
+              >
+                Évacuations sanitaires d’urgence, protocoles médicaux de pointe et hospitalisation dans les meilleurs centres accrédités JCI en Turquie. Prise en charge humaine, continue et francophone.
+              </p>
+
               <div
                 style={{
-                  background: '#ffffff',
-                  padding: '10px 22px',
-                  borderRadius: '16px',
-                  boxShadow: '0 8px 30px rgba(14, 165, 233, 0.25)',
-                  display: 'inline-flex',
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '14px',
+                  alignItems: 'center',
+                  marginBottom: '36px',
+                }}
+              >
+                <a href="#demande-devis" className="btn btn-gold" style={{ padding: '13px 26px', fontSize: '0.98rem' }}>
+                  <Stethoscope size={18} /> Demander un Devis Médical
+                </a>
+                <a
+                  href="https://wa.me/905418829549?text=Bonjour,%20je%20souhaite%20des%20informations%20sur%20Medi-Tour%20Assistance"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-outline"
+                  style={{
+                    padding: '13px 22px',
+                    fontSize: '0.98rem',
+                    borderColor: '#22c55e',
+                    color: '#4ade80',
+                    background: 'rgba(34, 197, 94, 0.08)',
+                  }}
+                >
+                  <MessageCircle size={18} /> WhatsApp Urgence (+90 541 882 95 49)
+                </a>
+              </div>
+
+              {/* QUICK KEY STATS */}
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(3, 1fr)',
+                  gap: '12px',
+                  paddingTop: '20px',
+                  borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+                }}
+              >
+                <div>
+                  <div style={{ color: '#38bdf8', fontSize: '1.3rem', fontWeight: 800 }}>100%</div>
+                  <div style={{ fontSize: '0.78rem', color: '#94a3b8' }}>Suivi francophone</div>
+                </div>
+                <div>
+                  <div style={{ color: '#38bdf8', fontSize: '1.3rem', fontWeight: 800 }}>24-48h</div>
+                  <div style={{ fontSize: '0.78rem', color: '#94a3b8' }}>Avis spécialiste</div>
+                </div>
+                <div>
+                  <div style={{ color: '#38bdf8', fontSize: '1.3rem', fontWeight: 800 }}>JCI</div>
+                  <div style={{ fontSize: '0.78rem', color: '#94a3b8' }}>Hôpitaux certifiés</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Crisp, Vibrant Medical Image Showcase */}
+            <div style={{ position: 'relative' }}>
+              <div
+                style={{
+                  borderRadius: '20px',
+                  overflow: 'hidden',
+                  border: '1px solid rgba(56, 189, 248, 0.3)',
+                  boxShadow: '0 20px 50px rgba(0, 0, 0, 0.6)',
+                  position: 'relative',
+                  height: '460px',
+                  background: '#0d1527',
+                }}
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=1200&q=90&fit=crop"
+                  alt="Équipe médicale de spécialistes et chirurgiens Turquie"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    display: 'block',
+                  }}
+                />
+                <div
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: 'linear-gradient(180deg, transparent 60%, rgba(10, 15, 29, 0.85) 100%)',
+                  }}
+                />
+              </div>
+
+              {/* Floating Top Badge */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '18px',
+                  left: '18px',
+                  background: 'rgba(10, 15, 29, 0.9)',
+                  backdropFilter: 'blur(8px)',
+                  border: '1px solid rgba(56, 189, 248, 0.4)',
+                  padding: '8px 14px',
+                  borderRadius: '10px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  color: '#38bdf8',
+                  fontSize: '0.82rem',
+                  fontWeight: 600,
+                  boxShadow: '0 8px 20px rgba(0,0,0,0.4)',
+                }}
+              >
+                <ShieldCheck size={16} /> Soins & Technologies Robotiques
+              </div>
+
+              {/* Floating Bottom Card */}
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: '-16px',
+                  right: '18px',
+                  left: '18px',
+                  background: '#111a2e',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  padding: '14px 18px',
+                  borderRadius: '12px',
+                  boxShadow: '0 12px 30px rgba(0,0,0,0.5)',
+                  display: 'flex',
                   alignItems: 'center',
                   gap: '12px',
                 }}
               >
-                <img
-                  src="/meditour-logo.png"
-                  alt="MEDI-TOUR ASSISTANCE"
-                  style={{ height: '52px', width: 'auto', objectFit: 'contain' }}
-                />
-              </div>
-            </div>
-
-            <div
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                background: 'rgba(14, 165, 233, 0.12)',
-                border: '1px solid rgba(14, 165, 233, 0.35)',
-                color: '#38bdf8',
-                padding: '6px 16px',
-                borderRadius: '999px',
-                fontSize: '0.85rem',
-                fontWeight: 600,
-                marginBottom: '20px',
-              }}
-            >
-              <HeartPulse size={16} /> MEDI-TOUR ASSISTANCE · Santé & Évacuation Sanitaire
-            </div>
-
-            <h1
-              style={{
-                fontSize: 'clamp(2.1rem, 4.5vw, 3.4rem)',
-                fontFamily: 'var(--font-serif)',
-                color: '#ffffff',
-                lineHeight: '1.2',
-                marginBottom: '22px',
-              }}
-            >
-              Le Pont Médical d’Excellence entre{' '}
-              <span
-                style={{
-                  background: 'linear-gradient(135deg, #38bdf8 0%, #818cf8 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}
-              >
-                l’Afrique de l’Ouest et la Turquie
-              </span>
-            </h1>
-
-            <p
-              style={{
-                fontSize: '1.1rem',
-                color: '#94a3b8',
-                lineHeight: '1.7',
-                marginBottom: '36px',
-              }}
-            >
-              Organisation d’évacuations sanitaires d’urgence, bilans spécialisés et hospitalisation dans les meilleurs centres médicaux accrédités JCI en Turquie. Une prise en charge humaine, continue et hautement sécurisée.
-            </p>
-
-            <div
-              style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: '16px',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <a href="#demande-devis" className="btn btn-gold" style={{ padding: '14px 28px', fontSize: '1rem' }}>
-                <Stethoscope size={18} /> Demander un Devis Médical
-              </a>
-              <a
-                href="https://wa.me/905418829549?text=Bonjour,%20je%20souhaite%20des%20informations%20sur%20Medi-Tour%20Assistance"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-outline"
-                style={{
-                  padding: '14px 24px',
-                  fontSize: '1rem',
-                  borderColor: '#22c55e',
-                  color: '#4ade80',
-                  background: 'rgba(34, 197, 94, 0.08)',
-                }}
-              >
-                <MessageCircle size={18} /> WhatsApp Urgence Santé (+90 541 882 95 49)
-              </a>
-            </div>
-
-            {/* QUICK KEY STATS */}
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-                gap: '16px',
-                marginTop: '50px',
-                textAlign: 'left',
-              }}
-            >
-              <div
-                style={{
-                  background: 'rgba(15, 23, 42, 0.65)',
-                  border: '1px solid rgba(255, 255, 255, 0.06)',
-                  borderRadius: '12px',
-                  padding: '18px 20px',
-                }}
-              >
-                <div style={{ color: '#38bdf8', fontSize: '1.4rem', fontWeight: 700, marginBottom: '4px' }}>
-                  100%
+                <div
+                  style={{
+                    background: '#0284c7',
+                    color: '#fff',
+                    padding: '10px',
+                    borderRadius: '10px',
+                    flexShrink: 0,
+                  }}
+                >
+                  <Hospital size={22} />
                 </div>
-                <div style={{ fontSize: '0.85rem', color: '#94a3b8' }}>Accompagnement francophone dédié</div>
-              </div>
-
-              <div
-                style={{
-                  background: 'rgba(15, 23, 42, 0.65)',
-                  border: '1px solid rgba(255, 255, 255, 0.06)',
-                  borderRadius: '12px',
-                  padding: '18px 20px',
-                }}
-              >
-                <div style={{ color: '#38bdf8', fontSize: '1.4rem', fontWeight: 700, marginBottom: '4px' }}>
-                  24-48h
+                <div>
+                  <strong style={{ color: '#fff', fontSize: '0.9rem', display: 'block' }}>
+                    Partenariats Hôpitaux Universitaires
+                  </strong>
+                  <span style={{ color: '#94a3b8', fontSize: '0.78rem' }}>
+                    Istanbul & Bolu · Accueil direct et coordination d&apos;urgence
+                  </span>
                 </div>
-                <div style={{ fontSize: '0.85rem', color: '#94a3b8' }}>Délai moyen d’avis médical certifié</div>
-              </div>
-
-              <div
-                style={{
-                  background: 'rgba(15, 23, 42, 0.65)',
-                  border: '1px solid rgba(255, 255, 255, 0.06)',
-                  borderRadius: '12px',
-                  padding: '18px 20px',
-                }}
-              >
-                <div style={{ color: '#38bdf8', fontSize: '1.4rem', fontWeight: 700, marginBottom: '4px' }}>
-                  JCI
-                </div>
-                <div style={{ fontSize: '0.85rem', color: '#94a3b8' }}>Réseau d’hôpitaux accrédités mondiaux</div>
-              </div>
-
-              <div
-                style={{
-                  background: 'rgba(15, 23, 42, 0.65)',
-                  border: '1px solid rgba(255, 255, 255, 0.06)',
-                  borderRadius: '12px',
-                  padding: '18px 20px',
-                }}
-              >
-                <div style={{ color: '#38bdf8', fontSize: '1.4rem', fontWeight: 700, marginBottom: '4px' }}>
-                  2 Pôles
-                </div>
-                <div style={{ fontSize: '0.85rem', color: '#94a3b8' }}>Burkina Faso & Turquie (Istanbul/Bolu)</div>
               </div>
             </div>
           </div>
