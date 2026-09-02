@@ -44,47 +44,50 @@ export default function Footer() {
 
           {/* Col 2 */}
           <div className="footer-col">
-            <h4>Secteurs d&apos;Export</h4>
+            <h4>Nos 3 Pôles d&apos;Activité</h4>
             <ul className="footer-links">
-              <li><Link href="/catalogue?category=textile">Textile & Confection</Link></li>
-              <li><Link href="/catalogue?category=mobilier">Mobilier & Agencement</Link></li>
-              <li><Link href="/catalogue?category=sante">Santé & Cosmétiques</Link></li>
-              <li><Link href="/catalogue?category=alimentaire">Agroalimentaire & Terroir</Link></li>
-              <li><Link href="/catalogue">Catalogue Général</Link></li>
+              <li><Link href="/catalogue">📦 Sourcing & Export B2B Turquie</Link></li>
+              <li><Link href="/meditour">🩺 MEDI-TOUR (Évacuation & Santé)</Link></li>
+              <li><Link href="/tourisme">🏛️ Visites Guidées & Tourisme</Link></li>
+              <li><Link href="/services">🚢 Fret & Logistique Douanière</Link></li>
+              <li><Link href="/engagements">🤝 Nos Engagements & Charte</Link></li>
             </ul>
           </div>
 
           {/* Col 3 */}
           <div className="footer-col">
-            <h4>Services B2B</h4>
+            <h4>Secteurs Export B2B</h4>
             <ul className="footer-links">
-              <li><Link href="/services">Sourcing Industriel</Link></li>
-              <li><Link href="/services">Audit d&apos;Usine & Contrôle</Link></li>
-              <li><Link href="/services">Fret Maritime & Aérien</Link></li>
-              <li><Link href="/services">Incoterms (FOB, CIF, DDP)</Link></li>
-              <li><Link href="/engagements">Nos Engagements & RSE</Link></li>
+              <li><Link href="/catalogue?category=textile">Textile & Confection Pro</Link></li>
+              <li><Link href="/catalogue?category=mobilier">Mobilier & Agencement Hôtelier</Link></li>
+              <li><Link href="/catalogue?category=sante">Dermo-Cosmétique & Santé</Link></li>
+              <li><Link href="/catalogue?category=alimentaire">Agroalimentaire & Terroir</Link></li>
+              <li><Link href="/contact">Demander une Cotation Usine</Link></li>
             </ul>
           </div>
 
           {/* Col 4 */}
           <div className="footer-col">
-            <h4>Bureau d&apos;Istanbul</h4>
+            <h4>Bureaux & Contacts</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '0.88rem' }}>
               <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
                 <MapPin size={18} style={{ color: 'var(--gold-400)', flexShrink: 0, marginTop: '2px' }} />
-                <span>Istanbul, Turquie (Export Hub Mondial)</span>
+                <span>
+                  <strong>Turquie :</strong> Istanbul & Bolu (Hub Opérationnel)<br />
+                  <strong>Afrique :</strong> Ouagadougou, Burkina Faso
+                </span>
               </div>
               <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
                 <Phone size={18} style={{ color: 'var(--gold-400)', flexShrink: 0 }} />
-                <span>+90 543 173 61 73</span>
+                <span>Commercial / Tourisme : +90 543 173 61 73</span>
+              </div>
+              <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                <Phone size={18} style={{ color: '#38bdf8', flexShrink: 0 }} />
+                <span>Medi-Tour Santé : +90 541 882 95 49</span>
               </div>
               <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
                 <Mail size={18} style={{ color: 'var(--gold-400)', flexShrink: 0 }} />
                 <span>havaglobaltrade@gmail.com</span>
-              </div>
-              <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-                <Globe size={18} style={{ color: 'var(--gold-400)', flexShrink: 0 }} />
-                <span>www.havaglobal.com</span>
               </div>
             </div>
           </div>

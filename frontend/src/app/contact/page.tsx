@@ -128,7 +128,33 @@ export default function ContactPage() {
                         +90 543 173 61 73
                       </strong>
                       <span style={{ color: 'var(--slate-400)', fontSize: '0.85rem' }}>
-                        Service Téléphonique / WhatsApp direct
+                        Service Commercial B2B & Tourisme (WhatsApp / Appel)
+                      </span>
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
+                    <div
+                      style={{
+                        width: '44px',
+                        height: '44px',
+                        background: 'rgba(56, 189, 248, 0.12)',
+                        color: '#0284c7',
+                        borderRadius: '8px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                      }}
+                    >
+                      <Phone size={20} />
+                    </div>
+                    <div>
+                      <strong style={{ display: 'block', color: 'var(--navy-950)', fontSize: '1.05rem' }}>
+                        +90 541 882 95 49 / +90 541 886 24 45
+                      </strong>
+                      <span style={{ color: 'var(--slate-400)', fontSize: '0.85rem' }}>
+                        MEDI-TOUR Santé & Évacuation Sanitaire (Burkina / Turquie)
                       </span>
                     </div>
                   </div>
@@ -154,33 +180,7 @@ export default function ContactPage() {
                         havaglobaltrade@gmail.com
                       </strong>
                       <span style={{ color: 'var(--slate-400)', fontSize: '0.85rem' }}>
-                        Email commercial pour cahiers des charges
-                      </span>
-                    </div>
-                  </div>
-
-                  <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
-                    <div
-                      style={{
-                        width: '44px',
-                        height: '44px',
-                        background: 'var(--gold-50)',
-                        color: 'var(--gold-500)',
-                        borderRadius: '8px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        flexShrink: 0,
-                      }}
-                    >
-                      <Globe size={20} />
-                    </div>
-                    <div>
-                      <strong style={{ display: 'block', color: 'var(--navy-950)', fontSize: '1.05rem' }}>
-                        www.havaglobal.com
-                      </strong>
-                      <span style={{ color: 'var(--slate-400)', fontSize: '0.85rem' }}>
-                        Portail officiel B2B International
+                        Email central pour toutes vos demandes
                       </span>
                     </div>
                   </div>
@@ -203,25 +203,36 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <strong style={{ display: 'block', color: 'var(--navy-950)', fontSize: '1.05rem' }}>
-                        Istanbul, Turquie
+                        Bureaux Internationaux
                       </strong>
-                      <span style={{ color: 'var(--slate-400)', fontSize: '0.85rem' }}>
-                        Siège d&apos;opérations export & Réseau Afrique/Europe
+                      <span style={{ color: 'var(--slate-400)', fontSize: '0.85rem', lineHeight: '1.5' }}>
+                        📍 <strong>Turquie :</strong> Istanbul & Bolu (Centre Opérationnel & Médical)<br />
+                        📍 <strong>Burkina Faso :</strong> Ouagadougou (Centre Administratif & Coordination Afrique)
                       </span>
                     </div>
                   </div>
                 </div>
 
-                <div style={{ marginTop: '30px', paddingTop: '24px', borderTop: '1px solid var(--slate-100)' }}>
+                <div style={{ marginTop: '30px', paddingTop: '24px', borderTop: '1px solid var(--slate-100)', display: 'flex', flexDirection: 'column', gap: '10px' }}>
                   <a
-                    href="https://wa.me/905431736173?text=Bonjour%20HAVA%20Global%20Trade"
+                    href="https://wa.me/905431736173?text=Bonjour%20HAVA%20Global"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn btn-whatsapp"
-                    style={{ width: '100%' }}
+                    style={{ width: '100%', justifyContent: 'center' }}
                   >
                     <MessageSquare size={18} />
-                    Ouvrir WhatsApp (+90 543 173 61 73)
+                    WhatsApp Commercial / Tourisme (+90 543 173 61 73)
+                  </a>
+                  <a
+                    href="https://wa.me/905418829549?text=Bonjour%20Medi-Tour%20Assistance"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-outline"
+                    style={{ width: '100%', justifyContent: 'center', borderColor: '#38bdf8', color: '#0284c7' }}
+                  >
+                    <MessageSquare size={18} />
+                    WhatsApp Medi-Tour Santé (+90 541 882 95 49)
                   </a>
                 </div>
               </div>
@@ -367,16 +378,24 @@ export default function ContactPage() {
                       </div>
 
                       <div className="form-group">
-                        <label className="form-label">Secteur concerné</label>
+                        <label className="form-label">Secteur / Service concerné *</label>
                         <select
                           className="form-select"
                           value={formData.categorySlug}
                           onChange={(e) => setFormData({ ...formData, categorySlug: e.target.value })}
                         >
-                          <option value="textile">Textile & Confection</option>
-                          <option value="mobilier">Mobilier & Équipement</option>
-                          <option value="sante">Santé & Cosmétiques</option>
-                          <option value="alimentaire">Agroalimentaire & Terroir</option>
+                          <optgroup label="📦 Sourcing & Export B2B">
+                            <option value="textile">Textile & Confection Pro</option>
+                            <option value="mobilier">Mobilier & Équipement</option>
+                            <option value="sante">Santé & Cosmétiques</option>
+                            <option value="alimentaire">Agroalimentaire & Terroir</option>
+                          </optgroup>
+                          <optgroup label="🩺 MEDI-TOUR ASSISTANCE">
+                            <option value="sante">Évacuation Sanitaire & Soins Turquie</option>
+                          </optgroup>
+                          <optgroup label="🏛️ Visites & Tourisme">
+                            <option value="mobilier">Visites Guidées, Salons B2B & Séjours</option>
+                          </optgroup>
                         </select>
                       </div>
                     </div>

@@ -39,9 +39,10 @@ export default function Navbar({ onOpenQuote }: { onOpenQuote?: () => void }) {
 
   const navLinks = [
     { href: '/', label: 'Accueil' },
-    { href: '/catalogue', label: 'Catalogue Produits' },
-    { href: '/services', label: 'Services & Sourcing' },
-    { href: '/engagements', label: 'Nos Engagements' },
+    { href: '/catalogue', label: 'Catalogue B2B' },
+    { href: '/meditour', label: 'Medi-Tour (Santé)' },
+    { href: '/tourisme', label: 'Visites & Tourisme' },
+    { href: '/services', label: 'Services Sourcing' },
     { href: '/contact', label: 'Contact & Devis' },
   ];
 

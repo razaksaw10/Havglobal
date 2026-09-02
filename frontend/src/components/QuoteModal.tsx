@@ -153,16 +153,24 @@ export default function QuoteModal({ product, onClose }: QuoteModalProps) {
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label">Secteur d&apos;activité</label>
+                  <label className="form-label">Service ou Secteur concerné *</label>
                   <select
                     className="form-select"
                     value={formData.categorySlug}
                     onChange={(e) => setFormData({ ...formData, categorySlug: e.target.value })}
                   >
-                    <option value="textile">Textile & Confection</option>
-                    <option value="mobilier">Mobilier & Équipement</option>
-                    <option value="sante">Santé & Cosmétiques</option>
-                    <option value="alimentaire">Agroalimentaire & Terroir</option>
+                    <optgroup label="📦 Sourcing & Export B2B">
+                      <option value="textile">Textile & Confection Pro</option>
+                      <option value="mobilier">Mobilier & Équipement</option>
+                      <option value="sante">Dermo-Cosmétique & Hygiène</option>
+                      <option value="alimentaire">Agroalimentaire & Terroir</option>
+                    </optgroup>
+                    <optgroup label="🩺 Medi-Tour Assistance">
+                      <option value="sante">Évacuation Sanitaire & Soins Turquie</option>
+                    </optgroup>
+                    <optgroup label="🏛️ Visites & Tourisme">
+                      <option value="mobilier">Visites Guidées, Salons B2B & Séjours</option>
+                    </optgroup>
                   </select>
                 </div>
               </div>

@@ -160,10 +160,138 @@ export default function HomePage() {
               <div className="hero-floating-card">
                 <div className="floating-icon">🌍</div>
                 <div className="floating-text">
-                  <h4>Hub Logistique Global</h4>
-                  <p>Turquie ➔ Afrique</p>
+                  <h4>Hub Multiservices</h4>
+                  <p>Commerce · Santé · Tourisme</p>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3 CORE PILLARS ECOSYSTEM SECTION */}
+      <section className="section" style={{ background: '#080d1a', borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
+        <div className="container">
+          <div className="section-header" style={{ textAlign: 'center', maxWidth: '820px', margin: '0 auto 48px' }}>
+            <span className="section-eyebrow" style={{ color: 'var(--gold-400)' }}>Écosystème Global</span>
+            <h2 className="section-title" style={{ color: '#fff', fontSize: '2.4rem' }}>
+              Nos 3 Grands Pôles d&apos;Activités & de Services
+            </h2>
+            <p className="section-subtitle" style={{ color: '#94a3b8' }}>
+              HAVA Global rassemble l&apos;excellence industrielle, médicale et touristique de Turquie pour accompagner les entreprises, les patients et les voyageurs d&apos;Afrique de l&apos;Ouest et du monde entier.
+            </p>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '28px' }}>
+            {/* PÔLE 1 : B2B */}
+            <div
+              style={{
+                background: 'linear-gradient(145deg, #111a2e, #0d1527)',
+                border: '1px solid rgba(217, 119, 6, 0.25)',
+                borderRadius: '18px',
+                padding: '32px 28px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                boxShadow: '0 15px 35px rgba(0,0,0,0.3)',
+              }}
+            >
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '18px' }}>
+                  <span style={{ fontSize: '2.4rem' }}>📦</span>
+                  <span style={{ background: 'rgba(217, 119, 6, 0.15)', color: 'var(--gold-400)', padding: '4px 10px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 700 }}>
+                    PÔLE EXPORT
+                  </span>
+                </div>
+                <h3 style={{ fontSize: '1.35rem', color: '#fff', marginBottom: '10px' }}>
+                  Sourcing & Commerce B2B Turquie
+                </h3>
+                <p style={{ color: '#94a3b8', fontSize: '0.9rem', lineHeight: '1.6', marginBottom: '20px' }}>
+                  Fourniture directe d&apos;usines turques en Textile, Mobilier, Équipements, Cosmétiques et Agroalimentaire avec audit qualité AQL et fret sécurisé.
+                </p>
+                <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 24px', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.85rem', color: '#cbd5e1' }}>
+                  <li style={{ display: 'flex', gap: '8px' }}>✔ Prix d&apos;usines direct sans intermédiaires</li>
+                  <li style={{ display: 'flex', gap: '8px' }}>✔ Personnalisation & Private Label (OEM)</li>
+                  <li style={{ display: 'flex', gap: '8px' }}>✔ Expédition maritime conteneur & aérien</li>
+                </ul>
+              </div>
+              <Link href="/catalogue" className="btn btn-gold btn-sm" style={{ width: '100%', justifyContent: 'center' }}>
+                Explorer le Catalogue B2B <ArrowRight size={16} />
+              </Link>
+            </div>
+
+            {/* PÔLE 2 : MEDI-TOUR ASSISTANCE */}
+            <div
+              style={{
+                background: 'linear-gradient(145deg, #111a2e, #0c1a2e)',
+                border: '1px solid rgba(56, 189, 248, 0.35)',
+                borderRadius: '18px',
+                padding: '32px 28px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                boxShadow: '0 15px 35px rgba(0,0,0,0.3)',
+              }}
+            >
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '18px' }}>
+                  <span style={{ fontSize: '2.4rem' }}>🩺</span>
+                  <span style={{ background: 'rgba(14, 165, 233, 0.15)', color: '#38bdf8', padding: '4px 10px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 700 }}>
+                    SANTÉ & ÉVACUATION
+                  </span>
+                </div>
+                <h3 style={{ fontSize: '1.35rem', color: '#fff', marginBottom: '10px' }}>
+                  MEDI-TOUR ASSISTANCE
+                </h3>
+                <p style={{ color: '#94a3b8', fontSize: '0.9rem', lineHeight: '1.6', marginBottom: '20px' }}>
+                  Organisation d&apos;évacuations sanitaires et tourisme médical entre le Burkina Faso / Afrique et les hôpitaux de référence JCI en Turquie.
+                </p>
+                <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 24px', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.85rem', color: '#cbd5e1' }}>
+                  <li style={{ display: 'flex', gap: '8px' }}>✔ Analyse de dossier par médecins spécialistes</li>
+                  <li style={{ display: 'flex', gap: '8px' }}>✔ Visa médical express & accueil aéroport VIP</li>
+                  <li style={{ display: 'flex', gap: '8px' }}>✔ Équipe soignante francophone dédiée</li>
+                </ul>
+              </div>
+              <Link href="/meditour" className="btn btn-outline btn-sm" style={{ width: '100%', justifyContent: 'center', borderColor: '#38bdf8', color: '#38bdf8', background: 'rgba(56, 189, 248, 0.08)' }}>
+                Découvrir MEDI-TOUR Santé <ArrowRight size={16} />
+              </Link>
+            </div>
+
+            {/* PÔLE 3 : TOURISME & VISITES GUIDÉES */}
+            <div
+              style={{
+                background: 'linear-gradient(145deg, #111a2e, #131d33)',
+                border: '1px solid rgba(251, 191, 36, 0.25)',
+                borderRadius: '18px',
+                padding: '32px 28px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                boxShadow: '0 15px 35px rgba(0,0,0,0.3)',
+              }}
+            >
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '18px' }}>
+                  <span style={{ fontSize: '2.4rem' }}>🏛️</span>
+                  <span style={{ background: 'rgba(251, 191, 36, 0.15)', color: '#fbbf24', padding: '4px 10px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 700 }}>
+                    TOURISME & AFFAIRES
+                  </span>
+                </div>
+                <h3 style={{ fontSize: '1.35rem', color: '#fff', marginBottom: '10px' }}>
+                  Visites Guidées & Séjours en Turquie
+                </h3>
+                <p style={{ color: '#94a3b8', fontSize: '0.9rem', lineHeight: '1.6', marginBottom: '20px' }}>
+                  Circuits culturels à Istanbul et Cappadoce, accompagnement de délégations d&apos;affaires sur salons B2B et circuits shopping grossistes.
+                </p>
+                <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 24px', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.85rem', color: '#cbd5e1' }}>
+                  <li style={{ display: 'flex', gap: '8px' }}>✔ Guides touristiques francophones certifiés</li>
+                  <li style={{ display: 'flex', gap: '8px' }}>✔ Salons professionnels & visites d&apos;usines</li>
+                  <li style={{ display: 'flex', gap: '8px' }}>✔ Van Mercedes VIP & réservation hôtels 4*/5*</li>
+                </ul>
+              </div>
+              <Link href="/tourisme" className="btn btn-outline btn-sm" style={{ width: '100%', justifyContent: 'center', borderColor: '#fbbf24', color: '#fbbf24', background: 'rgba(251, 191, 36, 0.08)' }}>
+                Voir les Formules de Visites <ArrowRight size={16} />
+              </Link>
             </div>
           </div>
         </div>
@@ -173,8 +301,8 @@ export default function HomePage() {
       <section className="section section-alt">
         <div className="container">
           <div className="section-header">
-            <span className="section-eyebrow">Pôles d&apos;Excellence</span>
-            <h2 className="section-title">Nos 4 Secteurs Industriels Majeurs</h2>
+            <span className="section-eyebrow">Pôle Industriel</span>
+            <h2 className="section-title">Nos 4 Secteurs Export B2B Majeurs</h2>
             <p className="section-subtitle">
               La Turquie combine proximité géographique, compétitivité tarifaire et standards de production européens de premier plan.
             </p>
